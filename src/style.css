@@ -35,7 +35,7 @@ body {
 .header {
   background: var(--bg);
   border-bottom: 1px solid var(--border);
-  padding: 1rem 1.5rem;
+  padding: 1rem 0;
   position: sticky;
   top: 0;
   z-index: 100;
@@ -44,6 +44,7 @@ body {
 .header-content {
   max-width: 1400px;
   margin: 0 auto;
+  padding: 0 1.5rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
