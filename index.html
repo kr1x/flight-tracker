@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0EA5E9">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="FlightTrack">
+  <link rel="apple-touch-icon" href="/icon.svg">
+  <title>Flight Tracker</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <link rel="stylesheet" href="/src/style.css">
+</head>
+<body>
+  <div id="app">
+    <!-- Header -->
+    <header class="header">
+      <div class="header-content">
+        <div class="logo">
+          <svg class="logo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 16v-2l-8-5V3.5a1.5 1.5 0 0 0-3 0V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/>
+          </svg>
+          <span class="logo-text">Flight Tracker</span>
+        </div>
+        <div class="header-actions">
+          <label class="btn btn-secondary">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/>
+            </svg>
+            Import CSV
+            <input type="file" id="csv-import" accept=".csv" hidden>
+          </label>
+          <button class="btn btn-secondary" id="csv-export">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/>
+            </svg>
+            Export CSV
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+      <!-- Map Section -->
+      <section class="section map-section">
+        <div class="map-controls">
+          <div class="toggle-group">
+            <button class="toggle-btn active" data-map="2d">2D Karte</button>
+            <button class="toggle-btn" data-map="3d">3D Globus</button>
+          </div>
+          <div class="map-options">
+            <label class="checkbox-label">
+              <input type="checkbox" id="show-routes" checked>
+              <span>Routen anzeigen</span>
+            </label>
+            <label class="checkbox-label" id="auto-rotate-label" style="display: none;">
+              <input type="checkbox" id="auto-rotate" checked>
+              <span>Auto-Rotation</span>
+            </label>
+            <select id="color-mode" class="select">
+              <option value="frequency">Farbe: Häufigkeit</option>
+              <option value="year">Farbe: Jahr</option>
+            </select>
+          </div>
+        </div>
+        <div class="map-container">
+          <div id="map-2d" class="map"></div>
+          <div id="map-3d" class="map" style="display: none;"></div>
+        </div>
+      </section>
+
+      <!-- Stats Cards -->
+      <section class="section stats-cards">
+        <div class="stat-card">
+          <div class="stat-label">Gesamtflüge</div>
+          <div class="stat-value" id="stat-total-flights">0</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Flugzeit</div>
+          <div class="stat-value" id="stat-total-time">0h</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Distanz</div>
+          <div class="stat-value" id="stat-total-distance">0 km</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Flughäfen</div>
+          <div class="stat-value" id="stat-airports">0</div>
+        </div>
+      </section>
+
+      <!-- Charts and Top Lists -->
+      <section class="section charts-section">
+        <div class="chart-container">
+          <h3 class="section-title">Flüge pro Jahr</h3>
+          <canvas id="flights-chart"></canvas>
+        </div>
+        <div class="top-lists">
+          <div class="top-list">
+            <h3 class="section-title">Top 5 Flughäfen</h3>
+            <ol id="top-airports" class="top-list-items"></ol>
+          </div>
+          <div class="top-list">
+            <h3 class="section-title">Top 5 Routen</h3>
+            <ol id="top-routes" class="top-list-items"></ol>
+          </div>
+        </div>
+      </section>
+
+      <!-- Detail Stats -->
+      <section class="section detail-stats">
+        <h3 class="section-title">Detail-Statistiken</h3>
+        <div class="stats-grid" id="detail-stats"></div>
+      </section>
+
+      <!-- Flight Table -->
+      <section class="section table-section">
+        <div class="table-header">
+          <h3 class="section-title">Flugliste</h3>
+          <button class="btn btn-primary" id="add-flight-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
+              <path d="M12 5v14M5 12h14"/>
+            </svg>
+            Neuer Flug
+          </button>
+        </div>
+        <div class="table-wrapper">
+          <table class="flight-table">
+            <thead>
+              <tr>
+                <th>Datum</th>
+                <th>Von</th>
+                <th>Nach</th>
+                <th>Abflug</th>
+                <th>Ankunft</th>
+                <th>Dauer</th>
+                <th>Distanz</th>
+                <th>Aktionen</th>
+              </tr>
+            </thead>
+            <tbody id="flight-table-body"></tbody>
+          </table>
+        </div>
+        <div class="pagination" id="pagination"></div>
+      </section>
+    </main>
+
+    <!-- Modals -->
+    <div class="modal-backdrop" id="modal-backdrop">
+      <!-- Flight Modal -->
+      <div class="modal" id="flight-modal">
+        <div class="modal-header">
+          <h3 id="modal-title">Neuer Flug</h3>
+          <button class="modal-close" data-close>&times;</button>
+        </div>
+        <form id="flight-form" class="modal-body">
+          <input type="hidden" id="flight-id">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="flight-date">Datum</label>
+              <input type="date" id="flight-date" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="flight-departure">Von (ICAO/IATA)</label>
+              <input type="text" id="flight-departure" maxlength="4" required placeholder="z.B. EDDF">
+            </div>
+            <div class="form-group">
+              <label for="flight-arrival">Nach (ICAO/IATA)</label>
+              <input type="text" id="flight-arrival" maxlength="4" required placeholder="z.B. EDDM">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="flight-departure-time">Abflug</label>
+              <input type="time" id="flight-departure-time" required>
+            </div>
+            <div class="form-group">
+              <label for="flight-arrival-time">Ankunft</label>
+              <input type="time" id="flight-arrival-time" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="flight-duration">Dauer</label>
+              <input type="time" id="flight-duration" required>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-close>Abbrechen</button>
+            <button type="submit" class="btn btn-primary">Speichern</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Delete Confirmation Modal -->
+      <div class="modal modal-small" id="delete-modal">
+        <div class="modal-header">
+          <h3>Flug löschen?</h3>
+          <button class="modal-close" data-close>&times;</button>
+        </div>
+        <div class="modal-body">
+          <p>Dieser Flug wird unwiderruflich gelöscht.</p>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" data-close>Abbrechen</button>
+          <button class="btn btn-danger" id="confirm-delete">Löschen</button>
+        </div>
+      </div>
+
+      <!-- Import Modal -->
+      <div class="modal modal-small" id="import-modal">
+        <div class="modal-header">
+          <h3>CSV Import</h3>
+          <button class="modal-close" data-close>&times;</button>
+        </div>
+        <div class="modal-body">
+          <p>Wie sollen die Daten importiert werden?</p>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" id="import-replace">Ersetzen</button>
+          <button class="btn btn-primary" id="import-add">Hinzufügen</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
