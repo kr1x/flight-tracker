@@ -2,7 +2,7 @@ import { defineConfig } from 'vite';
 import { VitePWA } from 'vite-plugin-pwa';
 
 export default defineConfig({
-  base: '/flight-tracker/',
+  base: '/',
   plugins: [
     VitePWA({
       registerType: 'autoUpdate',
@@ -14,8 +14,8 @@ export default defineConfig({
         theme_color: '#0EA5E9',
         background_color: '#FFFFFF',
         display: 'standalone',
-        start_url: '/flight-tracker/',
-        scope: '/flight-tracker/',
+        start_url: '/',
+        scope: '/',
         icons: [
           {
             src: 'logo.png',
