@@ -5,8 +5,8 @@ import * as XLSX from 'xlsx';
 export async function parseFile(file) {
   const extension = file.name.split('.').pop().toLowerCase();
 
-  if (extension === 'numbers') {
-    return parseNumbers(file);
+  if (['numbers', 'xls', 'xlsx'].includes(extension)) {
+    return parseSpreadsheet(file);
   } else {
     const content = await readFileAsText(file);
     return parseCSV(content);
@@ -33,8 +33,8 @@ function readFileAsArrayBuffer(file) {
   });
 }
 
-// Parse Numbers file
-async function parseNumbers(file) {
+// Parse spreadsheet file (Numbers, XLS, XLSX)
+async function parseSpreadsheet(file) {
   const buffer = await readFileAsArrayBuffer(file);
   const workbook = XLSX.read(buffer, { type: 'array' });
 
