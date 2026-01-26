@@ -10,38 +10,54 @@
   <link rel="apple-touch-icon" href="/logo.png">
   <title>Flight Tracker</title>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
-  <script type="module" crossorigin src="/assets/index-B3x2NT4L.js"></script>
-  <link rel="stylesheet" crossorigin href="/assets/index-BdHsT1KF.css">
+  <script type="module" crossorigin src="/assets/index-BYqhKaEZ.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-D0QFnWAX.css">
 <link rel="manifest" href="/manifest.webmanifest"><script id="vite-plugin-pwa:register-sw" src="/registerSW.js"></script></head>
 <body>
   <div id="app">
-    <!-- Header -->
-    <header class="header">
+    <!-- Header (nur sichtbar wenn eingeloggt) -->
+    <header class="header" id="app-header" style="display: none;">
       <div class="header-content">
         <div class="logo">
           <img class="logo-icon" src="/logo.png" alt="Flight Tracker Logo">
           <span class="logo-text">Flight Tracker</span>
         </div>
         <div class="header-actions">
-          <label class="btn btn-secondary">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
-              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/>
-            </svg>
-            Import CSV
-            <input type="file" id="csv-import" accept=".csv" hidden>
-          </label>
           <button class="btn btn-secondary" id="csv-export">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
               <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/>
             </svg>
             Export CSV
           </button>
+          <button class="btn btn-secondary" id="logout-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
+              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/>
+            </svg>
+            Logout
+          </button>
         </div>
       </div>
     </header>
 
-    <!-- Main Content -->
-    <main class="main">
+    <!-- Landing Page (sichtbar wenn nicht eingeloggt) -->
+    <div class="landing" id="landing-page">
+      <div class="landing-content">
+        <img class="landing-logo" src="/logo.png" alt="Flight Tracker Logo">
+        <h1 class="landing-title">Flight Tracker</h1>
+        <p class="landing-subtitle">Visualisiere deine Flughistorie</p>
+        <label class="btn btn-primary btn-large">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/>
+          </svg>
+          CSV-Datei hochladen
+          <input type="file" id="csv-import" accept=".csv" hidden>
+        </label>
+        <p class="landing-hint">Lade deine Flugdaten als CSV-Datei hoch, um zu starten.</p>
+      </div>
+    </div>
+
+    <!-- Main Content (nur sichtbar wenn eingeloggt) -->
+    <main class="main" id="app-main" style="display: none;">
       <!-- Map Section -->
       <section class="section map-section">
         <div class="map-controls">
