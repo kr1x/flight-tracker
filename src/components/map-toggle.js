@@ -223,6 +223,8 @@ export function updateCurrentMap() {
 
   if (currentMode === '3d') {
     updateMap3D(flights, currentOptions);
+    // Reapply auto-rotate setting after update
+    setAutoRotate(currentOptions.autoRotate);
   } else {
     updateMap2D(flights, currentOptions);
   }
