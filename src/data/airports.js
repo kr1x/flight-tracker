@@ -313,6 +313,8 @@ export const airports = {
   "PHNL": { icao: "PHNL", iata: "HNL", name: "Daniel K. Inouye International Airport", city: "Honolulu", country: "USA", lat: 21.3187, lon: -157.9225 },
   "ANC": { icao: "PANC", iata: "ANC", name: "Ted Stevens Anchorage International Airport", city: "Anchorage", country: "USA", lat: 61.1743, lon: -149.9962 },
   "PANC": { icao: "PANC", iata: "ANC", name: "Ted Stevens Anchorage International Airport", city: "Anchorage", country: "USA", lat: 61.1743, lon: -149.9962 },
+  "FAI": { icao: "PAFA", iata: "FAI", name: "Fairbanks International Airport", city: "Fairbanks", country: "USA", lat: 64.8151, lon: -147.8561 },
+  "PAFA": { icao: "PAFA", iata: "FAI", name: "Fairbanks International Airport", city: "Fairbanks", country: "USA", lat: 64.8151, lon: -147.8561 },
 
   // =====================
   // OTHER INTERNATIONAL
@@ -332,6 +334,8 @@ export const airports = {
   "RJAA": { icao: "RJAA", iata: "NRT", name: "Narita International Airport", city: "Tokyo", country: "Japan", lat: 35.7647, lon: 140.3864 },
   "HND": { icao: "RJTT", iata: "HND", name: "Tokyo Haneda Airport", city: "Tokyo", country: "Japan", lat: 35.5494, lon: 139.7798 },
   "RJTT": { icao: "RJTT", iata: "HND", name: "Tokyo Haneda Airport", city: "Tokyo", country: "Japan", lat: 35.5494, lon: 139.7798 },
+  "KIX": { icao: "RJBB", iata: "KIX", name: "Kansai International Airport", city: "Osaka", country: "Japan", lat: 34.4347, lon: 135.2441 },
+  "RJBB": { icao: "RJBB", iata: "KIX", name: "Kansai International Airport", city: "Osaka", country: "Japan", lat: 34.4347, lon: 135.2441 },
   "PEK": { icao: "ZBAA", iata: "PEK", name: "Beijing Capital International Airport", city: "Beijing", country: "China", lat: 40.0799, lon: 116.6031 },
   "ZBAA": { icao: "ZBAA", iata: "PEK", name: "Beijing Capital International Airport", city: "Beijing", country: "China", lat: 40.0799, lon: 116.6031 },
   "PVG": { icao: "ZSPD", iata: "PVG", name: "Shanghai Pudong International Airport", city: "Shanghai", country: "China", lat: 31.1434, lon: 121.8052 },
@@ -405,7 +409,15 @@ export const airports = {
   "DME": { icao: "UUDD", iata: "DME", name: "Moscow Domodedovo Airport", city: "Moscow", country: "Russia", lat: 55.4088, lon: 37.9063 },
   "UUDD": { icao: "UUDD", iata: "DME", name: "Moscow Domodedovo Airport", city: "Moscow", country: "Russia", lat: 55.4088, lon: 37.9063 },
   "LED": { icao: "ULLI", iata: "LED", name: "Pulkovo Airport", city: "Saint Petersburg", country: "Russia", lat: 59.8003, lon: 30.2625 },
-  "ULLI": { icao: "ULLI", iata: "LED", name: "Pulkovo Airport", city: "Saint Petersburg", country: "Russia", lat: 59.8003, lon: 30.2625 }
+  "ULLI": { icao: "ULLI", iata: "LED", name: "Pulkovo Airport", city: "Saint Petersburg", country: "Russia", lat: 59.8003, lon: 30.2625 },
+  "KJA": { icao: "UNKL", iata: "KJA", name: "Krasnoyarsk Yemelyanovo Airport", city: "Krasnoyarsk", country: "Russia", lat: 56.1729, lon: 92.4933 },
+  "UNKL": { icao: "UNKL", iata: "KJA", name: "Krasnoyarsk Yemelyanovo Airport", city: "Krasnoyarsk", country: "Russia", lat: 56.1729, lon: 92.4933 },
+
+  // Kazakhstan
+  "ALA": { icao: "UAAA", iata: "ALA", name: "Almaty International Airport", city: "Almaty", country: "Kazakhstan", lat: 43.3521, lon: 77.0405 },
+  "UAAA": { icao: "UAAA", iata: "ALA", name: "Almaty International Airport", city: "Almaty", country: "Kazakhstan", lat: 43.3521, lon: 77.0405 },
+  "NQZ": { icao: "UACC", iata: "NQZ", name: "Nursultan Nazarbayev International Airport", city: "Astana", country: "Kazakhstan", lat: 51.0222, lon: 71.4669 },
+  "UACC": { icao: "UACC", iata: "NQZ", name: "Nursultan Nazarbayev International Airport", city: "Astana", country: "Kazakhstan", lat: 51.0222, lon: 71.4669 }
 };
 
 // Lookup function - tries both ICAO and IATA codes
