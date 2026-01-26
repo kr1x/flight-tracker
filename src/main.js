@@ -1,6 +1,6 @@
 import './style.css';
 import { loadState, addFlights, getFlights, clearFlights, subscribe } from './store.js';
-import { parseCSV, generateCSV, downloadCSV } from './utils/csv-parser.js';
+import { parseFile, generateCSV, downloadCSV } from './utils/csv-parser.js';
 import { initMapToggle, updateCurrentMap } from './components/map-toggle.js';
 import { updateStats } from './components/stats.js';
 import { initCharts, updateCharts } from './components/charts.js';
@@ -104,8 +104,7 @@ function setupCSVHandlers() {
       setUploadLoading(true);
 
       try {
-        const content = await readFile(file);
-        const flights = parseCSV(content);
+        const flights = await parseFile(file);
 
         if (flights.length === 0) {
           setUploadLoading(false);
@@ -171,16 +170,6 @@ function setupLogout() {
       }
     });
   }
-}
-
-// Read file content as text
-function readFile(file) {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onload = (e) => resolve(e.target.result);
-    reader.onerror = (e) => reject(e);
-    reader.readAsText(file);
-  });
 }
 
 // Start the app when DOM is ready

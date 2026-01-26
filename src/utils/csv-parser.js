@@ -1,4 +1,62 @@
 import Papa from 'papaparse';
+import * as XLSX from 'xlsx';
+
+// Parse file (CSV or Numbers) to flight objects
+export async function parseFile(file) {
+  const extension = file.name.split('.').pop().toLowerCase();
+
+  if (extension === 'numbers') {
+    return parseNumbers(file);
+  } else {
+    const content = await readFileAsText(file);
+    return parseCSV(content);
+  }
+}
+
+// Read file as text
+function readFileAsText(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = (e) => resolve(e.target.result);
+    reader.onerror = (e) => reject(e);
+    reader.readAsText(file);
+  });
+}
+
+// Read file as ArrayBuffer
+function readFileAsArrayBuffer(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = (e) => resolve(e.target.result);
+    reader.onerror = (e) => reject(e);
+    reader.readAsArrayBuffer(file);
+  });
+}
+
+// Parse Numbers file
+async function parseNumbers(file) {
+  const buffer = await readFileAsArrayBuffer(file);
+  const workbook = XLSX.read(buffer, { type: 'array' });
+
+  // Get first sheet
+  const sheetName = workbook.SheetNames[0];
+  const sheet = workbook.Sheets[sheetName];
+
+  // Convert to JSON with header row
+  const data = XLSX.utils.sheet_to_json(sheet, { raw: false });
+
+  return data.map((row) => {
+    return {
+      id: generateId(),
+      date: parseDate(row['Date']),
+      departure: (row['Departure place'] || '').toUpperCase().trim(),
+      arrival: (row['Arrival place'] || '').toUpperCase().trim(),
+      departureTime: row['Departure time'] || '',
+      arrivalTime: row['Arrival time'] || '',
+      totalTime: row['Total time'] || ''
+    };
+  }).filter(flight => flight.date && flight.departure && flight.arrival);
+}
 
 // Parse CSV file content to flight objects
 export function parseCSV(csvContent) {

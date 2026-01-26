@@ -12,7 +12,8 @@
     "globe.gl": "^2.27.2",
     "leaflet": "^1.9.4",
     "leaflet.geodesic": "^2.7.1",
-    "papaparse": "^5.4.1"
+    "papaparse": "^5.4.1",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "vite": "^5.0.11",
