@@ -417,7 +417,269 @@ export const airports = {
   "ALA": { icao: "UAAA", iata: "ALA", name: "Almaty International Airport", city: "Almaty", country: "Kazakhstan", lat: 43.3521, lon: 77.0405 },
   "UAAA": { icao: "UAAA", iata: "ALA", name: "Almaty International Airport", city: "Almaty", country: "Kazakhstan", lat: 43.3521, lon: 77.0405 },
   "NQZ": { icao: "UACC", iata: "NQZ", name: "Nursultan Nazarbayev International Airport", city: "Astana", country: "Kazakhstan", lat: 51.0222, lon: 71.4669 },
-  "UACC": { icao: "UACC", iata: "NQZ", name: "Nursultan Nazarbayev International Airport", city: "Astana", country: "Kazakhstan", lat: 51.0222, lon: 71.4669 }
+  "UACC": { icao: "UACC", iata: "NQZ", name: "Nursultan Nazarbayev International Airport", city: "Astana", country: "Kazakhstan", lat: 51.0222, lon: 71.4669 },
+  "TAS": { icao: "UTTT", iata: "TAS", name: "Tashkent International Airport", city: "Tashkent", country: "Uzbekistan", lat: 41.2579, lon: 69.2812 },
+  "UTTT": { icao: "UTTT", iata: "TAS", name: "Tashkent International Airport", city: "Tashkent", country: "Uzbekistan", lat: 41.2579, lon: 69.2812 },
+
+  // =====================
+  // ADDITIONAL USA AIRPORTS
+  // =====================
+  "AMA": { icao: "KAMA", iata: "AMA", name: "Rick Husband Amarillo International Airport", city: "Amarillo", country: "USA", lat: 35.2194, lon: -101.7059 },
+  "KAMA": { icao: "KAMA", iata: "AMA", name: "Rick Husband Amarillo International Airport", city: "Amarillo", country: "USA", lat: 35.2194, lon: -101.7059 },
+  "APA": { icao: "KAPA", iata: "APA", name: "Centennial Airport", city: "Denver", country: "USA", lat: 39.5701, lon: -104.8493 },
+  "KAPA": { icao: "KAPA", iata: "APA", name: "Centennial Airport", city: "Denver", country: "USA", lat: 39.5701, lon: -104.8493 },
+  "BIL": { icao: "KBIL", iata: "BIL", name: "Billings Logan International Airport", city: "Billings", country: "USA", lat: 45.8077, lon: -108.5429 },
+  "KBIL": { icao: "KBIL", iata: "BIL", name: "Billings Logan International Airport", city: "Billings", country: "USA", lat: 45.8077, lon: -108.5429 },
+  "BLH": { icao: "KBLH", iata: "BLH", name: "Blythe Airport", city: "Blythe", country: "USA", lat: 33.6192, lon: -114.7168 },
+  "KBLH": { icao: "KBLH", iata: "BLH", name: "Blythe Airport", city: "Blythe", country: "USA", lat: 33.6192, lon: -114.7168 },
+  "CNO": { icao: "KCNO", iata: "CNO", name: "Chino Airport", city: "Chino", country: "USA", lat: 33.9747, lon: -117.6368 },
+  "KCNO": { icao: "KCNO", iata: "CNO", name: "Chino Airport", city: "Chino", country: "USA", lat: 33.9747, lon: -117.6368 },
+  "CVG": { icao: "KCVG", iata: "CVG", name: "Cincinnati/Northern Kentucky International Airport", city: "Cincinnati", country: "USA", lat: 39.0488, lon: -84.6678 },
+  "KCVG": { icao: "KCVG", iata: "CVG", name: "Cincinnati/Northern Kentucky International Airport", city: "Cincinnati", country: "USA", lat: 39.0488, lon: -84.6678 },
+  "CYS": { icao: "KCYS", iata: "CYS", name: "Cheyenne Regional Airport", city: "Cheyenne", country: "USA", lat: 41.1557, lon: -104.8118 },
+  "KCYS": { icao: "KCYS", iata: "CYS", name: "Cheyenne Regional Airport", city: "Cheyenne", country: "USA", lat: 41.1557, lon: -104.8118 },
+  "E63": { icao: "E63", iata: "", name: "Gila Bend Air Force Auxiliary Field", city: "Gila Bend", country: "USA", lat: 32.8881, lon: -112.7197 },
+  "EYW": { icao: "KEYW", iata: "EYW", name: "Key West International Airport", city: "Key West", country: "USA", lat: 24.5561, lon: -81.7596 },
+  "KEYW": { icao: "KEYW", iata: "EYW", name: "Key West International Airport", city: "Key West", country: "USA", lat: 24.5561, lon: -81.7596 },
+  "FLL": { icao: "KFLL", iata: "FLL", name: "Fort Lauderdale-Hollywood International Airport", city: "Fort Lauderdale", country: "USA", lat: 26.0726, lon: -80.1527 },
+  "KFLL": { icao: "KFLL", iata: "FLL", name: "Fort Lauderdale-Hollywood International Airport", city: "Fort Lauderdale", country: "USA", lat: 26.0726, lon: -80.1527 },
+  "FXE": { icao: "KFXE", iata: "FXE", name: "Fort Lauderdale Executive Airport", city: "Fort Lauderdale", country: "USA", lat: 26.1973, lon: -80.1707 },
+  "KFXE": { icao: "KFXE", iata: "FXE", name: "Fort Lauderdale Executive Airport", city: "Fort Lauderdale", country: "USA", lat: 26.1973, lon: -80.1707 },
+  "ILN": { icao: "KILN", iata: "ILN", name: "Wilmington Air Park", city: "Wilmington", country: "USA", lat: 39.4279, lon: -83.7921 },
+  "KILN": { icao: "KILN", iata: "ILN", name: "Wilmington Air Park", city: "Wilmington", country: "USA", lat: 39.4279, lon: -83.7921 },
+  "PSP": { icao: "KPSP", iata: "PSP", name: "Palm Springs International Airport", city: "Palm Springs", country: "USA", lat: 33.8303, lon: -116.5067 },
+  "KPSP": { icao: "KPSP", iata: "PSP", name: "Palm Springs International Airport", city: "Palm Springs", country: "USA", lat: 33.8303, lon: -116.5067 },
+  "PUB": { icao: "KPUB", iata: "PUB", name: "Pueblo Memorial Airport", city: "Pueblo", country: "USA", lat: 38.2891, lon: -104.4966 },
+  "KPUB": { icao: "KPUB", iata: "PUB", name: "Pueblo Memorial Airport", city: "Pueblo", country: "USA", lat: 38.2891, lon: -104.4966 },
+  "SAF": { icao: "KSAF", iata: "SAF", name: "Santa Fe Municipal Airport", city: "Santa Fe", country: "USA", lat: 35.6171, lon: -106.0883 },
+  "KSAF": { icao: "KSAF", iata: "SAF", name: "Santa Fe Municipal Airport", city: "Santa Fe", country: "USA", lat: 35.6171, lon: -106.0883 },
+  "SDM": { icao: "KSDM", iata: "SDM", name: "Brown Field Municipal Airport", city: "San Diego", country: "USA", lat: 32.5723, lon: -116.9801 },
+  "KSDM": { icao: "KSDM", iata: "SDM", name: "Brown Field Municipal Airport", city: "San Diego", country: "USA", lat: 32.5723, lon: -116.9801 },
+  "VGT": { icao: "KVGT", iata: "VGT", name: "North Las Vegas Airport", city: "Las Vegas", country: "USA", lat: 36.2107, lon: -115.1944 },
+  "KVGT": { icao: "KVGT", iata: "VGT", name: "North Las Vegas Airport", city: "Las Vegas", country: "USA", lat: 36.2107, lon: -115.1944 },
+  "YUM": { icao: "KNYL", iata: "YUM", name: "Yuma International Airport", city: "Yuma", country: "USA", lat: 32.6566, lon: -114.6060 },
+  "KNYL": { icao: "KNYL", iata: "YUM", name: "Yuma International Airport", city: "Yuma", country: "USA", lat: 32.6566, lon: -114.6060 },
+  "KGYI": { icao: "KGYI", iata: "", name: "North Texas Regional Airport", city: "Sherman", country: "USA", lat: 33.7141, lon: -96.6737 },
+  "KE60": { icao: "KE60", iata: "", name: "Eloy Municipal Airport", city: "Eloy", country: "USA", lat: 32.8069, lon: -111.5867 },
+
+  // =====================
+  // ADDITIONAL EUROPE
+  // =====================
+  // Spain
+  "ACE": { icao: "GCRR", iata: "ACE", name: "Lanzarote Airport", city: "Lanzarote", country: "Spain", lat: 28.9455, lon: -13.6052 },
+  "GCRR": { icao: "GCRR", iata: "ACE", name: "Lanzarote Airport", city: "Lanzarote", country: "Spain", lat: 28.9455, lon: -13.6052 },
+  "FUE": { icao: "GCFV", iata: "FUE", name: "Fuerteventura Airport", city: "Fuerteventura", country: "Spain", lat: 28.4527, lon: -13.8638 },
+  "GCFV": { icao: "GCFV", iata: "FUE", name: "Fuerteventura Airport", city: "Fuerteventura", country: "Spain", lat: 28.4527, lon: -13.8638 },
+  "BIO": { icao: "LEBB", iata: "BIO", name: "Bilbao Airport", city: "Bilbao", country: "Spain", lat: 43.3011, lon: -2.9106 },
+  "LEBB": { icao: "LEBB", iata: "BIO", name: "Bilbao Airport", city: "Bilbao", country: "Spain", lat: 43.3011, lon: -2.9106 },
+
+  // France
+  "AJA": { icao: "LFKJ", iata: "AJA", name: "Ajaccio Napoleon Bonaparte Airport", city: "Ajaccio", country: "France", lat: 41.9236, lon: 8.8029 },
+  "LFKJ": { icao: "LFKJ", iata: "AJA", name: "Ajaccio Napoleon Bonaparte Airport", city: "Ajaccio", country: "France", lat: 41.9236, lon: 8.8029 },
+
+  // Italy
+  "BRI": { icao: "LIBD", iata: "BRI", name: "Bari Karol Wojtyla Airport", city: "Bari", country: "Italy", lat: 41.1389, lon: 16.7606 },
+  "LIBD": { icao: "LIBD", iata: "BRI", name: "Bari Karol Wojtyla Airport", city: "Bari", country: "Italy", lat: 41.1389, lon: 16.7606 },
+  "CAG": { icao: "LIEE", iata: "CAG", name: "Cagliari Elmas Airport", city: "Cagliari", country: "Italy", lat: 39.2515, lon: 9.0543 },
+  "LIEE": { icao: "LIEE", iata: "CAG", name: "Cagliari Elmas Airport", city: "Cagliari", country: "Italy", lat: 39.2515, lon: 9.0543 },
+  "CTA": { icao: "LICC", iata: "CTA", name: "Catania Fontanarossa Airport", city: "Catania", country: "Italy", lat: 37.4668, lon: 15.0664 },
+  "LICC": { icao: "LICC", iata: "CTA", name: "Catania Fontanarossa Airport", city: "Catania", country: "Italy", lat: 37.4668, lon: 15.0664 },
+  "GOA": { icao: "LIMJ", iata: "GOA", name: "Genoa Cristoforo Colombo Airport", city: "Genoa", country: "Italy", lat: 44.4133, lon: 8.8375 },
+  "LIMJ": { icao: "LIMJ", iata: "GOA", name: "Genoa Cristoforo Colombo Airport", city: "Genoa", country: "Italy", lat: 44.4133, lon: 8.8375 },
+  "PMO": { icao: "LICJ", iata: "PMO", name: "Palermo Falcone-Borsellino Airport", city: "Palermo", country: "Italy", lat: 38.1760, lon: 13.0910 },
+  "LICJ": { icao: "LICJ", iata: "PMO", name: "Palermo Falcone-Borsellino Airport", city: "Palermo", country: "Italy", lat: 38.1760, lon: 13.0910 },
+  "PSA": { icao: "LIRP", iata: "PSA", name: "Pisa International Airport", city: "Pisa", country: "Italy", lat: 43.6839, lon: 10.3927 },
+  "LIRP": { icao: "LIRP", iata: "PSA", name: "Pisa International Airport", city: "Pisa", country: "Italy", lat: 43.6839, lon: 10.3927 },
+  "TRN": { icao: "LIMF", iata: "TRN", name: "Turin Caselle Airport", city: "Turin", country: "Italy", lat: 45.2008, lon: 7.6497 },
+  "LIMF": { icao: "LIMF", iata: "TRN", name: "Turin Caselle Airport", city: "Turin", country: "Italy", lat: 45.2008, lon: 7.6497 },
+  "TRS": { icao: "LIVT", iata: "TRS", name: "Trieste Friuli Venezia Giulia Airport", city: "Trieste", country: "Italy", lat: 45.8275, lon: 13.4722 },
+  "LIVT": { icao: "LIVT", iata: "TRS", name: "Trieste Friuli Venezia Giulia Airport", city: "Trieste", country: "Italy", lat: 45.8275, lon: 13.4722 },
+
+  // Greece
+  "CHQ": { icao: "LGSA", iata: "CHQ", name: "Chania International Airport", city: "Chania", country: "Greece", lat: 35.5317, lon: 24.1497 },
+  "LGSA": { icao: "LGSA", iata: "CHQ", name: "Chania International Airport", city: "Chania", country: "Greece", lat: 35.5317, lon: 24.1497 },
+  "KGS": { icao: "LGKO", iata: "KGS", name: "Kos Island International Airport", city: "Kos", country: "Greece", lat: 36.7933, lon: 26.9406 },
+  "LGKO": { icao: "LGKO", iata: "KGS", name: "Kos Island International Airport", city: "Kos", country: "Greece", lat: 36.7933, lon: 26.9406 },
+
+  // UK
+  "EMA": { icao: "EGNX", iata: "EMA", name: "East Midlands Airport", city: "Nottingham", country: "UK", lat: 52.8311, lon: -1.3281 },
+  "EGNX": { icao: "EGNX", iata: "EMA", name: "East Midlands Airport", city: "Nottingham", country: "UK", lat: 52.8311, lon: -1.3281 },
+  "GLA": { icao: "EGPF", iata: "GLA", name: "Glasgow Airport", city: "Glasgow", country: "UK", lat: 55.8719, lon: -4.4331 },
+  "EGPF": { icao: "EGPF", iata: "GLA", name: "Glasgow Airport", city: "Glasgow", country: "UK", lat: 55.8719, lon: -4.4331 },
+
+  // Scandinavia
+  "EBJ": { icao: "EKEB", iata: "EBJ", name: "Esbjerg Airport", city: "Esbjerg", country: "Denmark", lat: 55.5259, lon: 8.5534 },
+  "EKEB": { icao: "EKEB", iata: "EBJ", name: "Esbjerg Airport", city: "Esbjerg", country: "Denmark", lat: 55.5259, lon: 8.5534 },
+  "FRO": { icao: "ENFL", iata: "FRO", name: "Flora Airport", city: "Flora", country: "Norway", lat: 61.5836, lon: 5.0247 },
+  "ENFL": { icao: "ENFL", iata: "FRO", name: "Flora Airport", city: "Flora", country: "Norway", lat: 61.5836, lon: 5.0247 },
+  "FBU": { icao: "ENFB", iata: "FBU", name: "Oslo Fornebu Airport", city: "Oslo", country: "Norway", lat: 59.8958, lon: 10.6172 },
+  "ENFB": { icao: "ENFB", iata: "FBU", name: "Oslo Fornebu Airport", city: "Oslo", country: "Norway", lat: 59.8958, lon: 10.6172 },
+
+  // Eastern Europe
+  "BEG": { icao: "LYBE", iata: "BEG", name: "Belgrade Nikola Tesla Airport", city: "Belgrade", country: "Serbia", lat: 44.8184, lon: 20.3091 },
+  "LYBE": { icao: "LYBE", iata: "BEG", name: "Belgrade Nikola Tesla Airport", city: "Belgrade", country: "Serbia", lat: 44.8184, lon: 20.3091 },
+  "KBP": { icao: "UKBB", iata: "KBP", name: "Boryspil International Airport", city: "Kyiv", country: "Ukraine", lat: 50.3450, lon: 30.8947 },
+  "UKBB": { icao: "UKBB", iata: "KBP", name: "Boryspil International Airport", city: "Kyiv", country: "Ukraine", lat: 50.3450, lon: 30.8947 },
+  "KTW": { icao: "EPKT", iata: "KTW", name: "Katowice Pyrzowice Airport", city: "Katowice", country: "Poland", lat: 50.4743, lon: 19.0800 },
+  "EPKT": { icao: "EPKT", iata: "KTW", name: "Katowice Pyrzowice Airport", city: "Katowice", country: "Poland", lat: 50.4743, lon: 19.0800 },
+  "LJU": { icao: "LJLJ", iata: "LJU", name: "Ljubljana Joze Pucnik Airport", city: "Ljubljana", country: "Slovenia", lat: 46.2237, lon: 14.4576 },
+  "LJLJ": { icao: "LJLJ", iata: "LJU", name: "Ljubljana Joze Pucnik Airport", city: "Ljubljana", country: "Slovenia", lat: 46.2237, lon: 14.4576 },
+  "MSQ": { icao: "UMMS", iata: "MSQ", name: "Minsk National Airport", city: "Minsk", country: "Belarus", lat: 53.8825, lon: 28.0307 },
+  "UMMS": { icao: "UMMS", iata: "MSQ", name: "Minsk National Airport", city: "Minsk", country: "Belarus", lat: 53.8825, lon: 28.0307 },
+  "RIX": { icao: "EVRA", iata: "RIX", name: "Riga International Airport", city: "Riga", country: "Latvia", lat: 56.9236, lon: 23.9711 },
+  "EVRA": { icao: "EVRA", iata: "RIX", name: "Riga International Airport", city: "Riga", country: "Latvia", lat: 56.9236, lon: 23.9711 },
+  "ZAG": { icao: "LDZA", iata: "ZAG", name: "Zagreb Franjo Tudman Airport", city: "Zagreb", country: "Croatia", lat: 45.7429, lon: 16.0688 },
+  "LDZA": { icao: "LDZA", iata: "ZAG", name: "Zagreb Franjo Tudman Airport", city: "Zagreb", country: "Croatia", lat: 45.7429, lon: 16.0688 },
+
+  // Austria
+  "LNZ": { icao: "LOWL", iata: "LNZ", name: "Linz Airport", city: "Linz", country: "Austria", lat: 48.2332, lon: 14.1875 },
+  "LOWL": { icao: "LOWL", iata: "LNZ", name: "Linz Airport", city: "Linz", country: "Austria", lat: 48.2332, lon: 14.1875 },
+
+  // Cyprus
+  "LCA": { icao: "LCLK", iata: "LCA", name: "Larnaca International Airport", city: "Larnaca", country: "Cyprus", lat: 34.8751, lon: 33.6249 },
+  "LCLK": { icao: "LCLK", iata: "LCA", name: "Larnaca International Airport", city: "Larnaca", country: "Cyprus", lat: 34.8751, lon: 33.6249 },
+  "PFO": { icao: "LCPH", iata: "PFO", name: "Paphos International Airport", city: "Paphos", country: "Cyprus", lat: 34.7180, lon: 32.4857 },
+  "LCPH": { icao: "LCPH", iata: "PFO", name: "Paphos International Airport", city: "Paphos", country: "Cyprus", lat: 34.7180, lon: 32.4857 },
+
+  // Malta
+  "MLA": { icao: "LMML", iata: "MLA", name: "Malta International Airport", city: "Valletta", country: "Malta", lat: 35.8575, lon: 14.4775 },
+  "LMML": { icao: "LMML", iata: "MLA", name: "Malta International Airport", city: "Valletta", country: "Malta", lat: 35.8575, lon: 14.4775 },
+
+  // Turkey
+  "ESB": { icao: "LTAC", iata: "ESB", name: "Esenboga International Airport", city: "Ankara", country: "Turkey", lat: 40.1281, lon: 32.9951 },
+  "LTAC": { icao: "LTAC", iata: "ESB", name: "Esenboga International Airport", city: "Ankara", country: "Turkey", lat: 40.1281, lon: 32.9951 },
+  "ISL": { icao: "LTBA", iata: "ISL", name: "Istanbul Ataturk Airport", city: "Istanbul", country: "Turkey", lat: 40.9769, lon: 28.8146 },
+  "LTBA": { icao: "LTBA", iata: "ISL", name: "Istanbul Ataturk Airport", city: "Istanbul", country: "Turkey", lat: 40.9769, lon: 28.8146 },
+
+  // Germany (historic/closed)
+  "SXF": { icao: "EDDB", iata: "SXF", name: "Berlin Schonefeld Airport", city: "Berlin", country: "Germany", lat: 52.3800, lon: 13.5225 },
+  "TXL": { icao: "EDDT", iata: "TXL", name: "Berlin Tegel Airport", city: "Berlin", country: "Germany", lat: 52.5597, lon: 13.2877 },
+  "EDDT": { icao: "EDDT", iata: "TXL", name: "Berlin Tegel Airport", city: "Berlin", country: "Germany", lat: 52.5597, lon: 13.2877 },
+
+  // =====================
+  // MIDDLE EAST
+  // =====================
+  "BAH": { icao: "OBBI", iata: "BAH", name: "Bahrain International Airport", city: "Manama", country: "Bahrain", lat: 26.2708, lon: 50.6336 },
+  "OBBI": { icao: "OBBI", iata: "BAH", name: "Bahrain International Airport", city: "Manama", country: "Bahrain", lat: 26.2708, lon: 50.6336 },
+  "DMM": { icao: "OEDF", iata: "DMM", name: "King Fahd International Airport", city: "Dammam", country: "Saudi Arabia", lat: 26.4712, lon: 49.7979 },
+  "OEDF": { icao: "OEDF", iata: "DMM", name: "King Fahd International Airport", city: "Dammam", country: "Saudi Arabia", lat: 26.4712, lon: 49.7979 },
+  "JED": { icao: "OEJN", iata: "JED", name: "King Abdulaziz International Airport", city: "Jeddah", country: "Saudi Arabia", lat: 21.6796, lon: 39.1565 },
+  "OEJN": { icao: "OEJN", iata: "JED", name: "King Abdulaziz International Airport", city: "Jeddah", country: "Saudi Arabia", lat: 21.6796, lon: 39.1565 },
+  "KWI": { icao: "OKBK", iata: "KWI", name: "Kuwait International Airport", city: "Kuwait City", country: "Kuwait", lat: 29.2267, lon: 47.9689 },
+  "OKBK": { icao: "OKBK", iata: "KWI", name: "Kuwait International Airport", city: "Kuwait City", country: "Kuwait", lat: 29.2267, lon: 47.9689 },
+  "RUH": { icao: "OERK", iata: "RUH", name: "King Khalid International Airport", city: "Riyadh", country: "Saudi Arabia", lat: 24.9576, lon: 46.6988 },
+  "OERK": { icao: "OERK", iata: "RUH", name: "King Khalid International Airport", city: "Riyadh", country: "Saudi Arabia", lat: 24.9576, lon: 46.6988 },
+  "SHJ": { icao: "OMSJ", iata: "SHJ", name: "Sharjah International Airport", city: "Sharjah", country: "UAE", lat: 25.3286, lon: 55.5172 },
+  "OMSJ": { icao: "OMSJ", iata: "SHJ", name: "Sharjah International Airport", city: "Sharjah", country: "UAE", lat: 25.3286, lon: 55.5172 },
+  "IKA": { icao: "OIIE", iata: "IKA", name: "Imam Khomeini International Airport", city: "Tehran", country: "Iran", lat: 35.4161, lon: 51.1522 },
+  "OIIE": { icao: "OIIE", iata: "IKA", name: "Imam Khomeini International Airport", city: "Tehran", country: "Iran", lat: 35.4161, lon: 51.1522 },
+
+  // =====================
+  // ADDITIONAL ASIA
+  // =====================
+  // Japan
+  "NGO": { icao: "RJGG", iata: "NGO", name: "Chubu Centrair International Airport", city: "Nagoya", country: "Japan", lat: 34.8584, lon: 136.8049 },
+  "RJGG": { icao: "RJGG", iata: "NGO", name: "Chubu Centrair International Airport", city: "Nagoya", country: "Japan", lat: 34.8584, lon: 136.8049 },
+
+  // South Korea
+  "GMP": { icao: "RKSS", iata: "GMP", name: "Gimpo International Airport", city: "Seoul", country: "South Korea", lat: 37.5583, lon: 126.7906 },
+  "RKSS": { icao: "RKSS", iata: "GMP", name: "Gimpo International Airport", city: "Seoul", country: "South Korea", lat: 37.5583, lon: 126.7906 },
+  "PUS": { icao: "RKPK", iata: "PUS", name: "Gimhae International Airport", city: "Busan", country: "South Korea", lat: 35.1795, lon: 128.9382 },
+  "RKPK": { icao: "RKPK", iata: "PUS", name: "Gimhae International Airport", city: "Busan", country: "South Korea", lat: 35.1795, lon: 128.9382 },
+
+  // China
+  "CAN": { icao: "ZGGG", iata: "CAN", name: "Guangzhou Baiyun International Airport", city: "Guangzhou", country: "China", lat: 23.3924, lon: 113.2988 },
+  "ZGGG": { icao: "ZGGG", iata: "CAN", name: "Guangzhou Baiyun International Airport", city: "Guangzhou", country: "China", lat: 23.3924, lon: 113.2988 },
+  "SHA": { icao: "ZSSS", iata: "SHA", name: "Shanghai Hongqiao International Airport", city: "Shanghai", country: "China", lat: 31.1979, lon: 121.3363 },
+  "ZSSS": { icao: "ZSSS", iata: "SHA", name: "Shanghai Hongqiao International Airport", city: "Shanghai", country: "China", lat: 31.1979, lon: 121.3363 },
+  "XMN": { icao: "ZSAM", iata: "XMN", name: "Xiamen Gaoqi International Airport", city: "Xiamen", country: "China", lat: 24.5440, lon: 118.1278 },
+  "ZSAM": { icao: "ZSAM", iata: "XMN", name: "Xiamen Gaoqi International Airport", city: "Xiamen", country: "China", lat: 24.5440, lon: 118.1278 },
+
+  // India
+  "BLR": { icao: "VOBL", iata: "BLR", name: "Kempegowda International Airport", city: "Bangalore", country: "India", lat: 13.1986, lon: 77.7066 },
+  "VOBL": { icao: "VOBL", iata: "BLR", name: "Kempegowda International Airport", city: "Bangalore", country: "India", lat: 13.1986, lon: 77.7066 },
+  "CCU": { icao: "VECC", iata: "CCU", name: "Netaji Subhas Chandra Bose International Airport", city: "Kolkata", country: "India", lat: 22.6547, lon: 88.4467 },
+  "VECC": { icao: "VECC", iata: "CCU", name: "Netaji Subhas Chandra Bose International Airport", city: "Kolkata", country: "India", lat: 22.6547, lon: 88.4467 },
+  "HYD": { icao: "VOHS", iata: "HYD", name: "Rajiv Gandhi International Airport", city: "Hyderabad", country: "India", lat: 17.2313, lon: 78.4299 },
+  "VOHS": { icao: "VOHS", iata: "HYD", name: "Rajiv Gandhi International Airport", city: "Hyderabad", country: "India", lat: 17.2313, lon: 78.4299 },
+  "MAA": { icao: "VOMM", iata: "MAA", name: "Chennai International Airport", city: "Chennai", country: "India", lat: 12.9941, lon: 80.1709 },
+  "VOMM": { icao: "VOMM", iata: "MAA", name: "Chennai International Airport", city: "Chennai", country: "India", lat: 12.9941, lon: 80.1709 },
+
+  // Pakistan
+  "ISB": { icao: "OPRN", iata: "ISB", name: "Islamabad International Airport", city: "Islamabad", country: "Pakistan", lat: 33.5605, lon: 72.8496 },
+  "OPRN": { icao: "OPRN", iata: "ISB", name: "Islamabad International Airport", city: "Islamabad", country: "Pakistan", lat: 33.5605, lon: 72.8496 },
+  "KHI": { icao: "OPKC", iata: "KHI", name: "Jinnah International Airport", city: "Karachi", country: "Pakistan", lat: 24.9065, lon: 67.1608 },
+  "OPKC": { icao: "OPKC", iata: "KHI", name: "Jinnah International Airport", city: "Karachi", country: "Pakistan", lat: 24.9065, lon: 67.1608 },
+  "LHE": { icao: "OPLA", iata: "LHE", name: "Allama Iqbal International Airport", city: "Lahore", country: "Pakistan", lat: 31.5216, lon: 74.4036 },
+  "OPLA": { icao: "OPLA", iata: "LHE", name: "Allama Iqbal International Airport", city: "Lahore", country: "Pakistan", lat: 31.5216, lon: 74.4036 },
+
+  // Southeast Asia
+  "CGK": { icao: "WIII", iata: "CGK", name: "Soekarno-Hatta International Airport", city: "Jakarta", country: "Indonesia", lat: -6.1256, lon: 106.6559 },
+  "WIII": { icao: "WIII", iata: "CGK", name: "Soekarno-Hatta International Airport", city: "Jakarta", country: "Indonesia", lat: -6.1256, lon: 106.6559 },
+  "KUL": { icao: "WMKK", iata: "KUL", name: "Kuala Lumpur International Airport", city: "Kuala Lumpur", country: "Malaysia", lat: 2.7456, lon: 101.7099 },
+  "WMKK": { icao: "WMKK", iata: "KUL", name: "Kuala Lumpur International Airport", city: "Kuala Lumpur", country: "Malaysia", lat: 2.7456, lon: 101.7099 },
+  "MNL": { icao: "RPLL", iata: "MNL", name: "Ninoy Aquino International Airport", city: "Manila", country: "Philippines", lat: 14.5086, lon: 121.0197 },
+  "RPLL": { icao: "RPLL", iata: "MNL", name: "Ninoy Aquino International Airport", city: "Manila", country: "Philippines", lat: 14.5086, lon: 121.0197 },
+  "PEN": { icao: "WMKP", iata: "PEN", name: "Penang International Airport", city: "Penang", country: "Malaysia", lat: 5.2972, lon: 100.2769 },
+  "WMKP": { icao: "WMKP", iata: "PEN", name: "Penang International Airport", city: "Penang", country: "Malaysia", lat: 5.2972, lon: 100.2769 },
+
+  // Sri Lanka
+  "CMB": { icao: "VCBI", iata: "CMB", name: "Bandaranaike International Airport", city: "Colombo", country: "Sri Lanka", lat: 7.1808, lon: 79.8841 },
+  "VCBI": { icao: "VCBI", iata: "CMB", name: "Bandaranaike International Airport", city: "Colombo", country: "Sri Lanka", lat: 7.1808, lon: 79.8841 },
+
+  // =====================
+  // AFRICA
+  // =====================
+  "CAS": { icao: "GMMN", iata: "CMN", name: "Mohammed V International Airport", city: "Casablanca", country: "Morocco", lat: 33.3675, lon: -7.5900 },
+  "CMN": { icao: "GMMN", iata: "CMN", name: "Mohammed V International Airport", city: "Casablanca", country: "Morocco", lat: 33.3675, lon: -7.5900 },
+  "GMMN": { icao: "GMMN", iata: "CMN", name: "Mohammed V International Airport", city: "Casablanca", country: "Morocco", lat: 33.3675, lon: -7.5900 },
+  "TNG": { icao: "GMTT", iata: "TNG", name: "Tangier Ibn Battouta Airport", city: "Tangier", country: "Morocco", lat: 35.7269, lon: -5.9169 },
+  "GMTT": { icao: "GMTT", iata: "TNG", name: "Tangier Ibn Battouta Airport", city: "Tangier", country: "Morocco", lat: 35.7269, lon: -5.9169 },
+  "DKR": { icao: "GOOY", iata: "DKR", name: "Leopold Sedar Senghor International Airport", city: "Dakar", country: "Senegal", lat: 14.7397, lon: -17.4902 },
+  "GOOY": { icao: "GOOY", iata: "DKR", name: "Leopold Sedar Senghor International Airport", city: "Dakar", country: "Senegal", lat: 14.7397, lon: -17.4902 },
+  "HRE": { icao: "FVHA", iata: "HRE", name: "Robert Gabriel Mugabe International Airport", city: "Harare", country: "Zimbabwe", lat: -17.9318, lon: 31.0928 },
+  "FVHA": { icao: "FVHA", iata: "HRE", name: "Robert Gabriel Mugabe International Airport", city: "Harare", country: "Zimbabwe", lat: -17.9318, lon: 31.0928 },
+  "HRG": { icao: "HEGN", iata: "HRG", name: "Hurghada International Airport", city: "Hurghada", country: "Egypt", lat: 27.1783, lon: 33.7994 },
+  "HEGN": { icao: "HEGN", iata: "HRG", name: "Hurghada International Airport", city: "Hurghada", country: "Egypt", lat: 27.1783, lon: 33.7994 },
+  "TIP": { icao: "HLLT", iata: "TIP", name: "Tripoli International Airport", city: "Tripoli", country: "Libya", lat: 32.6635, lon: 13.1590 },
+  "HLLT": { icao: "HLLT", iata: "TIP", name: "Tripoli International Airport", city: "Tripoli", country: "Libya", lat: 32.6635, lon: 13.1590 },
+
+  // Tunisia
+  "DJE": { icao: "DTTJ", iata: "DJE", name: "Djerba-Zarzis International Airport", city: "Djerba", country: "Tunisia", lat: 33.8750, lon: 10.7755 },
+  "DTTJ": { icao: "DTTJ", iata: "DJE", name: "Djerba-Zarzis International Airport", city: "Djerba", country: "Tunisia", lat: 33.8750, lon: 10.7755 },
+  "MIR": { icao: "DTMB", iata: "MIR", name: "Monastir Habib Bourguiba International Airport", city: "Monastir", country: "Tunisia", lat: 35.7581, lon: 10.7547 },
+  "DTMB": { icao: "DTMB", iata: "MIR", name: "Monastir Habib Bourguiba International Airport", city: "Monastir", country: "Tunisia", lat: 35.7581, lon: 10.7547 },
+  "TUN": { icao: "DTTA", iata: "TUN", name: "Tunis-Carthage International Airport", city: "Tunis", country: "Tunisia", lat: 36.8510, lon: 10.2272 },
+  "DTTA": { icao: "DTTA", iata: "TUN", name: "Tunis-Carthage International Airport", city: "Tunis", country: "Tunisia", lat: 36.8510, lon: 10.2272 },
+
+  // =====================
+  // LATIN AMERICA
+  // =====================
+  "GDL": { icao: "MMGL", iata: "GDL", name: "Guadalajara International Airport", city: "Guadalajara", country: "Mexico", lat: 20.5218, lon: -103.3111 },
+  "MMGL": { icao: "MMGL", iata: "GDL", name: "Guadalajara International Airport", city: "Guadalajara", country: "Mexico", lat: 20.5218, lon: -103.3111 },
+  "GIG": { icao: "SBGL", iata: "GIG", name: "Rio de Janeiro Galeao International Airport", city: "Rio de Janeiro", country: "Brazil", lat: -22.8100, lon: -43.2506 },
+  "SBGL": { icao: "SBGL", iata: "GIG", name: "Rio de Janeiro Galeao International Airport", city: "Rio de Janeiro", country: "Brazil", lat: -22.8100, lon: -43.2506 },
+  "VCP": { icao: "SBKP", iata: "VCP", name: "Viracopos International Airport", city: "Campinas", country: "Brazil", lat: -23.0074, lon: -47.1345 },
+  "SBKP": { icao: "SBKP", iata: "VCP", name: "Viracopos International Airport", city: "Campinas", country: "Brazil", lat: -23.0074, lon: -47.1345 },
+  "MVD": { icao: "SUMU", iata: "MVD", name: "Carrasco International Airport", city: "Montevideo", country: "Uruguay", lat: -34.8384, lon: -56.0308 },
+  "SUMU": { icao: "SUMU", iata: "MVD", name: "Carrasco International Airport", city: "Montevideo", country: "Uruguay", lat: -34.8384, lon: -56.0308 },
+  "POP": { icao: "MDPP", iata: "POP", name: "Gregorio Luperon International Airport", city: "Puerto Plata", country: "Dominican Republic", lat: 19.7579, lon: -70.5700 },
+  "MDPP": { icao: "MDPP", iata: "POP", name: "Gregorio Luperon International Airport", city: "Puerto Plata", country: "Dominican Republic", lat: 19.7579, lon: -70.5700 },
+  "PUJ": { icao: "MDPC", iata: "PUJ", name: "Punta Cana International Airport", city: "Punta Cana", country: "Dominican Republic", lat: 18.5674, lon: -68.3634 },
+  "MDPC": { icao: "MDPC", iata: "PUJ", name: "Punta Cana International Airport", city: "Punta Cana", country: "Dominican Republic", lat: 18.5674, lon: -68.3634 },
+
+  // =====================
+  // OCEANIA
+  // =====================
+  "PPT": { icao: "NTAA", iata: "PPT", name: "Faa'a International Airport", city: "Papeete", country: "French Polynesia", lat: -17.5537, lon: -149.6064 },
+  "NTAA": { icao: "NTAA", iata: "PPT", name: "Faa'a International Airport", city: "Papeete", country: "French Polynesia", lat: -17.5537, lon: -149.6064 },
+
+  // =====================
+  // MISC CODES (used in data)
+  // =====================
+  "MUX": { icao: "OPMT", iata: "MUX", name: "Multan International Airport", city: "Multan", country: "Pakistan", lat: 30.2032, lon: 71.4191 },
+  "OPMT": { icao: "OPMT", iata: "MUX", name: "Multan International Airport", city: "Multan", country: "Pakistan", lat: 30.2032, lon: 71.4191 },
+  "TAN": { icao: "FWCL", iata: "TAN", name: "Tangier alternate", city: "Tangier", country: "Morocco", lat: 35.7269, lon: -5.9169 }
 };
 
 // Lookup function - tries both ICAO and IATA codes
