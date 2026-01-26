@@ -12,6 +12,20 @@ let landingPage;
 let appHeader;
 let appMain;
 
+// Check if there's data in localStorage
+function hasStoredData() {
+  try {
+    const saved = localStorage.getItem('flight-tracker-data');
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      return parsed.flights && parsed.flights.length > 0;
+    }
+  } catch (e) {
+    console.error('Error checking localStorage:', e);
+  }
+  return false;
+}
+
 // Initialize the application
 function init() {
   // Get DOM elements
@@ -23,8 +37,9 @@ function init() {
   loadState();
 
   // Check if we have data and show appropriate view
+  // Use direct localStorage check as fallback for race conditions
   const flights = getFlights();
-  if (flights.length > 0) {
+  if (flights.length > 0 || hasStoredData()) {
     showDashboard();
   } else {
     showLanding();
