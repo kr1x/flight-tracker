@@ -11,8 +11,8 @@
   <link rel="apple-touch-icon" href="/logo.png">
   <title>Flight Tracker</title>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
-  <script type="module" crossorigin src="/assets/index-Dfww3fL9.js"></script>
-  <link rel="stylesheet" crossorigin href="/assets/index-BhiqKspd.css">
+  <script type="module" crossorigin src="/assets/index-RTzw1KyK.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-BdEWOTbt.css">
 <link rel="manifest" href="/manifest.webmanifest"><script id="vite-plugin-pwa:register-sw" src="/registerSW.js"></script></head>
 <body>
   <div id="app">
@@ -68,6 +68,12 @@
             <button class="toggle-btn" data-map="3d">3D Globus</button>
           </div>
           <div class="map-options">
+            <button class="btn btn-secondary btn-filter" id="filter-btn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+                <path d="M22 3H2l8 9.46V19l4 2v-8.54L22 3z"/>
+              </svg>
+              <span id="filter-btn-text">Flüge filtern</span>
+            </button>
             <label class="checkbox-label">
               <input type="checkbox" id="show-routes" checked>
               <span>Routen anzeigen</span>
@@ -240,6 +246,28 @@
         <div class="modal-footer">
           <button class="btn btn-secondary" id="import-replace">Ersetzen</button>
           <button class="btn btn-primary" id="import-add">Hinzufügen</button>
+        </div>
+      </div>
+
+      <!-- Filter Modal -->
+      <div class="modal modal-small" id="filter-modal">
+        <div class="modal-header">
+          <h3>Flüge filtern</h3>
+          <button class="modal-close" data-close>&times;</button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="filter-departure">Abflug-Flughafen</label>
+            <input type="text" id="filter-departure" maxlength="4" placeholder="z.B. EDDF">
+          </div>
+          <div class="form-group" style="margin-top: 1rem;">
+            <label for="filter-arrival">Ziel-Flughafen</label>
+            <input type="text" id="filter-arrival" maxlength="4" placeholder="z.B. EDDM">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" id="filter-reset">Zurücksetzen</button>
+          <button class="btn btn-primary" id="filter-apply">Anwenden</button>
         </div>
       </div>
     </div>

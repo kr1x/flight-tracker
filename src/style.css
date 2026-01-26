@@ -132,6 +132,16 @@ body {
   color: var(--text);
 }
 
+.btn-filter.active {
+  background: var(--primary);
+  color: white;
+  border-color: var(--primary);
+}
+
+.btn-filter.active:hover {
+  background: var(--primary-dark);
+}
+
 /* Main */
 .main {
   max-width: 1400px;
