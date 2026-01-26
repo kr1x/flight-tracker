@@ -45,11 +45,12 @@
         <img class="landing-logo" src="/logo.png" alt="Flight Tracker Logo">
         <h1 class="landing-title">Flight Tracker</h1>
         <p class="landing-subtitle">Visualisiere deine Flughistorie</p>
-        <label class="btn btn-primary btn-large">
+        <label class="btn btn-primary btn-large" id="upload-btn">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/>
           </svg>
-          CSV-Datei hochladen
+          <span id="upload-btn-text">CSV-Datei hochladen</span>
+          <span class="spinner" id="upload-spinner"></span>
           <input type="file" id="csv-import" accept=".csv" hidden>
         </label>
         <p class="landing-hint">Lade deine Flugdaten als CSV-Datei hoch, um zu starten.</p>

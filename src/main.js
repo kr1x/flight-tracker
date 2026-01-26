@@ -76,6 +76,22 @@ function handleDataChange() {
   renderTable();
 }
 
+// Show/hide upload spinner
+function setUploadLoading(loading) {
+  const uploadBtn = document.getElementById('upload-btn');
+  const spinner = document.getElementById('upload-spinner');
+
+  if (uploadBtn && spinner) {
+    if (loading) {
+      uploadBtn.classList.add('loading');
+      spinner.classList.add('active');
+    } else {
+      uploadBtn.classList.remove('loading');
+      spinner.classList.remove('active');
+    }
+  }
+}
+
 // Setup CSV import and export handlers
 function setupCSVHandlers() {
   // CSV Import
@@ -85,11 +101,14 @@ function setupCSVHandlers() {
       const file = e.target.files[0];
       if (!file) return;
 
+      setUploadLoading(true);
+
       try {
         const content = await readFile(file);
         const flights = parseCSV(content);
 
         if (flights.length === 0) {
+          setUploadLoading(false);
           alert('Keine gültigen Flugdaten in der CSV-Datei gefunden.');
           return;
         }
@@ -98,6 +117,7 @@ function setupCSVHandlers() {
         const existingFlights = getFlights();
 
         if (existingFlights.length > 0) {
+          setUploadLoading(false);
           // Show import choice modal
           openImportModal({
             callback: (replace) => {
@@ -108,10 +128,12 @@ function setupCSVHandlers() {
         } else {
           // No existing data, just add and show dashboard
           addFlights(flights, true);
+          setUploadLoading(false);
           showDashboard();
         }
       } catch (error) {
         console.error('Error importing CSV:', error);
+        setUploadLoading(false);
         alert('Fehler beim Importieren der CSV-Datei.');
       }
 
