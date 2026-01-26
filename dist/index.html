@@ -68,20 +68,20 @@
             <button class="toggle-btn" data-map="3d">3D Globus</button>
           </div>
           <div class="map-options">
+            <label class="checkbox-label" id="auto-rotate-label" style="display: none;">
+              <input type="checkbox" id="auto-rotate" checked>
+              <span>Auto-Rotation</span>
+            </label>
+            <label class="checkbox-label">
+              <input type="checkbox" id="show-routes" checked>
+              <span>Routen anzeigen</span>
+            </label>
             <button class="btn btn-secondary btn-filter" id="filter-btn">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
                 <path d="M22 3H2l8 9.46V19l4 2v-8.54L22 3z"/>
               </svg>
               <span id="filter-btn-text">Flüge filtern</span>
             </button>
-            <label class="checkbox-label">
-              <input type="checkbox" id="show-routes" checked>
-              <span>Routen anzeigen</span>
-            </label>
-            <label class="checkbox-label" id="auto-rotate-label" style="display: none;">
-              <input type="checkbox" id="auto-rotate" checked>
-              <span>Auto-Rotation</span>
-            </label>
             <select id="color-mode" class="select">
               <option value="frequency">Farbe: Häufigkeit</option>
               <option value="year">Farbe: Jahr</option>
