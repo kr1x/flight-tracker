@@ -118,9 +118,26 @@ export function calculateStats(flights) {
 
   // Total time
   let totalMinutes = 0;
+  let totalNightMinutes = 0;
+  let totalPicMinutes = 0;
+  let totalTakeoffDay = 0;
+  let totalTakeoffNight = 0;
+  let totalLandingDay = 0;
+  let totalLandingNight = 0;
+
   flights.forEach(f => {
     totalMinutes += parseTimeToMinutes(f.totalTime);
+    totalNightMinutes += parseTimeToMinutes(f.nightTime);
+    totalPicMinutes += parseTimeToMinutes(f.picTime);
+    totalTakeoffDay += f.takeoffDay || 0;
+    totalTakeoffNight += f.takeoffNight || 0;
+    totalLandingDay += f.landingDay || 0;
+    totalLandingNight += f.landingNight || 0;
   });
+
+  const totalSicMinutes = totalMinutes - totalPicMinutes;
+  const totalLandings = totalLandingDay + totalLandingNight;
+  const totalTakeoffs = totalTakeoffDay + totalTakeoffNight;
 
   // Total distance and flight distances
   let totalDistance = 0;
@@ -275,7 +292,19 @@ export function calculateStats(flights) {
     topAirports,
     topRoutes,
     flightsByYear,
-    airportCounts
+    airportCounts,
+    totalLandings,
+    totalTakeoffs,
+    totalTakeoffDay,
+    totalTakeoffNight,
+    totalLandingDay,
+    totalLandingNight,
+    totalNightTime: formatMinutes(totalNightMinutes),
+    totalNightMinutes,
+    totalPicTime: formatMinutes(totalPicMinutes),
+    totalPicMinutes,
+    totalSicTime: formatMinutes(totalSicMinutes > 0 ? totalSicMinutes : 0),
+    totalSicMinutes: totalSicMinutes > 0 ? totalSicMinutes : 0
   };
 }
 
@@ -302,7 +331,19 @@ function getEmptyStats() {
     topAirports: [],
     topRoutes: [],
     flightsByYear: {},
-    airportCounts: {}
+    airportCounts: {},
+    totalLandings: 0,
+    totalTakeoffs: 0,
+    totalTakeoffDay: 0,
+    totalTakeoffNight: 0,
+    totalLandingDay: 0,
+    totalLandingNight: 0,
+    totalNightTime: '0h',
+    totalNightMinutes: 0,
+    totalPicTime: '0h',
+    totalPicMinutes: 0,
+    totalSicTime: '0h',
+    totalSicMinutes: 0
   };
 }
 

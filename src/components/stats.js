@@ -1,16 +1,17 @@
-import { calculateStats, formatDate } from '../utils/calculations.js';
-import { getFlights } from '../store.js';
+import { calculateStats } from '../utils/calculations.js';
+import { getFilteredFlights } from '../store.js';
 import { getAirportName } from '../data/airports.js';
 
 // Update all statistics displays
 export function updateStats() {
-  const flights = getFlights();
+  const flights = getFilteredFlights();
   const stats = calculateStats(flights);
 
   // Main stat cards
   updateElement('stat-total-flights', stats.totalFlights.toLocaleString('de-DE'));
   updateElement('stat-total-time', stats.totalTime);
   updateElement('stat-total-distance', `${stats.totalDistance.toLocaleString('de-DE')} km`);
+  updateElement('stat-distance-miles', `${stats.totalDistanceMiles.toLocaleString('de-DE')} mi`);
   updateElement('stat-airports', stats.uniqueAirports.toLocaleString('de-DE'));
 
   // Top airports list
@@ -39,28 +40,14 @@ export function updateStats() {
   const detailStatsEl = document.getElementById('detail-stats');
   if (detailStatsEl) {
     const detailItems = [
-      { label: 'Durchschnittliche Dauer', value: stats.averageDuration },
-      {
-        label: 'Längster Flug',
-        value: stats.longestFlight
-          ? `${stats.longestFlight.route} (${stats.longestFlight.duration})`
-          : '-'
-      },
-      {
-        label: 'Kürzester Flug',
-        value: stats.shortestFlight
-          ? `${stats.shortestFlight.route} (${stats.shortestFlight.duration})`
-          : '-'
-      },
-      { label: 'Erster Flug', value: stats.firstFlight ? formatDate(stats.firstFlight) : '-' },
-      { label: 'Letzter Flug', value: stats.lastFlight ? formatDate(stats.lastFlight) : '-' },
-      { label: 'Aktivster Tag', value: stats.mostActiveDay },
-      { label: 'Aktivster Monat', value: stats.mostActiveMonth },
-      { label: 'Aktivstes Jahr', value: stats.mostActiveYear },
-      { label: 'Längste Serie', value: `${stats.longestStreak} Tage` },
-      { label: 'Rundflüge', value: stats.roundTrips.toLocaleString('de-DE') },
-      { label: 'Einweg-Flüge', value: stats.oneWay.toLocaleString('de-DE') },
-      { label: 'Distanz (Meilen)', value: `${stats.totalDistanceMiles.toLocaleString('de-DE')} mi` }
+      { label: 'PIC-Zeit', value: stats.totalPicTime },
+      { label: 'SIC-Zeit', value: stats.totalSicTime },
+      { label: 'Nachtflugzeit', value: stats.totalNightTime },
+      { label: 'Starts Tag', value: stats.totalTakeoffDay.toLocaleString('de-DE') },
+      { label: 'Starts Nacht', value: stats.totalTakeoffNight.toLocaleString('de-DE') },
+      { label: 'Landungen Tag', value: stats.totalLandingDay.toLocaleString('de-DE') },
+      { label: 'Landungen Nacht', value: stats.totalLandingNight.toLocaleString('de-DE') },
+      { label: 'Landungen Gesamt', value: stats.totalLandings.toLocaleString('de-DE') }
     ];
 
     detailStatsEl.innerHTML = detailItems.map(item => `

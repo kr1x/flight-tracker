@@ -59,11 +59,15 @@ export function initModals(dataChangeCallback) {
     addFlightBtn.addEventListener('click', openAddModal);
   }
 
-  // Auto-uppercase airport codes
-  const departureInput = document.getElementById('flight-departure');
-  const arrivalInput = document.getElementById('flight-arrival');
+  // Auto-uppercase code inputs
+  const upperInputs = [
+    document.getElementById('flight-departure'),
+    document.getElementById('flight-arrival'),
+    document.getElementById('flight-aircraft'),
+    document.getElementById('flight-registration')
+  ];
 
-  [departureInput, arrivalInput].forEach(input => {
+  upperInputs.forEach(input => {
     if (input) {
       input.addEventListener('input', (e) => {
         e.target.value = e.target.value.toUpperCase();
@@ -101,11 +105,15 @@ export function openEditModal(id) {
 
   document.getElementById('flight-id').value = flight.id;
   document.getElementById('flight-date').value = flight.date;
+  document.getElementById('flight-aircraft').value = flight.aircraftIcao || '';
+  document.getElementById('flight-registration').value = flight.registration || '';
   document.getElementById('flight-departure').value = flight.departure;
   document.getElementById('flight-arrival').value = flight.arrival;
   document.getElementById('flight-departure-time').value = flight.departureTime;
   document.getElementById('flight-arrival-time').value = flight.arrivalTime;
   document.getElementById('flight-duration').value = flight.totalTime;
+  document.getElementById('flight-night-time').value = flight.nightTime || '00:00';
+  document.getElementById('flight-pic-time').value = flight.picTime || '00:00';
 
   openModal(modal);
 }
@@ -131,11 +139,15 @@ function handleFlightFormSubmit(e) {
   const id = document.getElementById('flight-id').value;
   const flightData = {
     date: document.getElementById('flight-date').value,
+    aircraftIcao: (document.getElementById('flight-aircraft').value || '').toUpperCase().trim(),
+    registration: (document.getElementById('flight-registration').value || '').toUpperCase().trim(),
     departure: document.getElementById('flight-departure').value.toUpperCase(),
     arrival: document.getElementById('flight-arrival').value.toUpperCase(),
     departureTime: document.getElementById('flight-departure-time').value,
     arrivalTime: document.getElementById('flight-arrival-time').value,
-    totalTime: document.getElementById('flight-duration').value
+    totalTime: document.getElementById('flight-duration').value,
+    nightTime: document.getElementById('flight-night-time').value || '00:00',
+    picTime: document.getElementById('flight-pic-time').value || '00:00'
   };
 
   if (id) {

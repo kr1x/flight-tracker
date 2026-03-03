@@ -1,11 +1,13 @@
 import './style.css';
-import { loadState, addFlights, getFlights, clearFlights, subscribe } from './store.js';
+import { loadState, addFlights, getFlights, getFilteredFlights, clearFlights, subscribe, setAircraftFilter, setDepartureFilter, setArrivalFilter, getAvailableFilterOptions } from './store.js';
+import { getAirportName } from './data/airports.js';
 import { parseFile, generateCSV, downloadCSV } from './utils/csv-parser.js';
 import { initMapToggle, updateCurrentMap } from './components/map-toggle.js';
 import { updateStats } from './components/stats.js';
 import { initCharts, updateCharts } from './components/charts.js';
 import { initTable, renderTable } from './components/table.js';
 import { initModals, openImportModal } from './components/modals.js';
+import { initAnalysis, updateAnalysis } from './components/analysis.js';
 
 // DOM Elements
 let landingPage;
@@ -28,16 +30,12 @@ function hasStoredData() {
 
 // Initialize the application
 function init() {
-  // Get DOM elements
   landingPage = document.getElementById('landing-page');
   appHeader = document.getElementById('app-header');
   appMain = document.getElementById('app-main');
 
-  // Load saved data from LocalStorage
   loadState();
 
-  // Check if we have data and show appropriate view
-  // Use direct localStorage check as fallback for race conditions
   const flights = getFlights();
   if (flights.length > 0 || hasStoredData()) {
     showDashboard();
@@ -45,13 +43,9 @@ function init() {
     showLanding();
   }
 
-  // Setup CSV import/export
   setupCSVHandlers();
-
-  // Setup logout
   setupLogout();
 
-  // Subscribe to state changes
   subscribe(handleDataChange);
 
   console.log('Flight Tracker initialized');
@@ -70,16 +64,16 @@ function showDashboard() {
   appHeader.style.display = 'block';
   appMain.style.display = 'flex';
 
-  // Initialize components (only once)
   if (!window.componentsInitialized) {
     initMapToggle();
     initCharts();
     initTable();
     initModals(handleDataChange);
+    initAnalysis();
+    initGlobalFilter();
     window.componentsInitialized = true;
   }
 
-  // Update all views
   handleDataChange();
 }
 
@@ -89,6 +83,71 @@ function handleDataChange() {
   updateStats();
   updateCharts();
   renderTable();
+  updateAnalysis();
+  updateFilterOptions();
+}
+
+// Initialize global filter dropdowns
+function initGlobalFilter() {
+  const aircraftSelect = document.getElementById('aircraft-filter');
+  const departureSelect = document.getElementById('departure-filter');
+  const arrivalSelect = document.getElementById('arrival-filter');
+
+  if (aircraftSelect) {
+    aircraftSelect.addEventListener('change', (e) => setAircraftFilter(e.target.value));
+  }
+  if (departureSelect) {
+    departureSelect.addEventListener('change', (e) => setDepartureFilter(e.target.value));
+  }
+  if (arrivalSelect) {
+    arrivalSelect.addEventListener('change', (e) => setArrivalFilter(e.target.value));
+  }
+}
+
+// Rebuild a filter select's options, preserving current selection
+function rebuildFilterSelect(selectEl, defaultLabel, codes, formatLabel) {
+  if (!selectEl) return;
+
+  const currentValue = selectEl.value;
+  selectEl.innerHTML = `<option value="">${defaultLabel}</option>`;
+
+  codes.forEach(code => {
+    const option = document.createElement('option');
+    option.value = code;
+    option.textContent = formatLabel(code);
+    selectEl.appendChild(option);
+  });
+
+  if (codes.includes(currentValue)) {
+    selectEl.value = currentValue;
+  }
+}
+
+// Update all filter dropdown options (interdependent)
+function updateFilterOptions() {
+  const airportLabel = (code) => `${code} - ${getAirportName(code)}`;
+  const { departures, arrivals, aircraftTypes } = getAvailableFilterOptions();
+
+  rebuildFilterSelect(
+    document.getElementById('departure-filter'),
+    'Alle Abflüge',
+    departures,
+    airportLabel
+  );
+
+  rebuildFilterSelect(
+    document.getElementById('arrival-filter'),
+    'Alle Ziele',
+    arrivals,
+    airportLabel
+  );
+
+  rebuildFilterSelect(
+    document.getElementById('aircraft-filter'),
+    'Alle Flugzeuge',
+    aircraftTypes,
+    (type) => type
+  );
 }
 
 // Show/hide upload spinner
@@ -109,7 +168,6 @@ function setUploadLoading(loading) {
 
 // Setup CSV import and export handlers
 function setupCSVHandlers() {
-  // CSV Import
   const csvImport = document.getElementById('csv-import');
   if (csvImport) {
     csvImport.addEventListener('change', async (e) => {
@@ -127,12 +185,10 @@ function setupCSVHandlers() {
           return;
         }
 
-        // Check if we have existing data
         const existingFlights = getFlights();
 
         if (existingFlights.length > 0) {
           setUploadLoading(false);
-          // Show import choice modal
           openImportModal({
             callback: (replace) => {
               addFlights(flights, replace);
@@ -140,7 +196,6 @@ function setupCSVHandlers() {
             }
           });
         } else {
-          // No existing data, just add and show dashboard
           addFlights(flights, true);
           setUploadLoading(false);
           showDashboard();
@@ -151,12 +206,10 @@ function setupCSVHandlers() {
         alert('Fehler beim Importieren der CSV-Datei.');
       }
 
-      // Reset input
       e.target.value = '';
     });
   }
 
-  // CSV Export
   const csvExport = document.getElementById('csv-export');
   if (csvExport) {
     csvExport.addEventListener('click', () => {

@@ -19,13 +19,15 @@ export function initMap2D(containerId) {
   map = L.map(containerId, {
     center: defaultCenter,
     zoom: defaultZoom,
-    worldCopyJump: true
+    maxBounds: [[-90, -180], [90, 180]],
+    maxBoundsViscosity: 1.0
   });
 
   // OpenStreetMap tiles
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '© OpenStreetMap contributors',
-    maxZoom: 18
+    maxZoom: 18,
+    noWrap: true
   }).addTo(map);
 
   // Create layer groups
@@ -55,9 +57,11 @@ export function updateMap2D(flights, options = {}) {
 
   // Calculate airport visit counts
   const airportCounts = {};
+  const departureCounts = {};
   flights.forEach(f => {
     airportCounts[f.departure] = (airportCounts[f.departure] || 0) + 1;
     airportCounts[f.arrival] = (airportCounts[f.arrival] || 0) + 1;
+    departureCounts[f.departure] = (departureCounts[f.departure] || 0) + 1;
   });
 
   const maxCount = Math.max(...Object.values(airportCounts));
@@ -180,7 +184,19 @@ export function updateMap2D(flights, options = {}) {
     });
   }
 
-  // Fit bounds to data
+  // Center on the airport with most departures
+  const topDeparture = Object.entries(departureCounts)
+    .sort((a, b) => b[1] - a[1])[0];
+
+  if (topDeparture) {
+    const coords = getCoordinates(topDeparture[0]);
+    if (coords) {
+      map.setView([coords.lat, coords.lon], 5);
+      return;
+    }
+  }
+
+  // Fallback: fit bounds to all data
   const bounds = calculateBounds(flights);
   if (bounds) {
     map.fitBounds([

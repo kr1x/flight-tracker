@@ -33,29 +33,53 @@ function readFileAsArrayBuffer(file) {
   });
 }
 
+// Get departure column value with fallback for old format
+function getDeparture(row) {
+  return (row['Departure'] || row['Departure place'] || '').toUpperCase().trim();
+}
+
+// Get arrival column value with fallback for old format
+function getArrival(row) {
+  return (row['Arrival'] || row['Arrival place'] || '').toUpperCase().trim();
+}
+
+// Extract all flight fields from a row
+function mapRowToFlight(row) {
+  return {
+    id: generateId(),
+    date: parseDate(row['Date']),
+    departure: getDeparture(row),
+    arrival: getArrival(row),
+    departureTime: row['Departure time'] || '',
+    arrivalTime: row['Arrival time'] || '',
+    totalTime: row['Total time'] || '',
+    registration: (row['Registration'] || '').trim(),
+    aircraftIcao: (row['Aircraft ICAO'] || '').toUpperCase().trim(),
+    takeoffDay: parseInt(row['Take off day'], 10) || 0,
+    takeoffNight: parseInt(row['Take off night'], 10) || 0,
+    landingDay: parseInt(row['Landing day'], 10) || 0,
+    landingNight: parseInt(row['Landing night'], 10) || 0,
+    nightTime: row['Night time'] || '',
+    picTime: row['PIC Time'] || '',
+    isPic: row['PIC'] === '1' || row['PIC'] === 1,
+    isSic: row['SIC'] === '1' || row['SIC'] === 1,
+    crew: (row['Crew'] || '').trim(),
+    notes: (row['Notes'] || '').trim()
+  };
+}
+
 // Parse spreadsheet file (Numbers, XLS, XLSX)
 async function parseSpreadsheet(file) {
   const buffer = await readFileAsArrayBuffer(file);
   const workbook = XLSX.read(buffer, { type: 'array' });
 
-  // Get first sheet
   const sheetName = workbook.SheetNames[0];
   const sheet = workbook.Sheets[sheetName];
-
-  // Convert to JSON with header row
   const data = XLSX.utils.sheet_to_json(sheet, { raw: false });
 
-  return data.map((row) => {
-    return {
-      id: generateId(),
-      date: parseDate(row['Date']),
-      departure: (row['Departure place'] || '').toUpperCase().trim(),
-      arrival: (row['Arrival place'] || '').toUpperCase().trim(),
-      departureTime: row['Departure time'] || '',
-      arrivalTime: row['Arrival time'] || '',
-      totalTime: row['Total time'] || ''
-    };
-  }).filter(flight => flight.date && flight.departure && flight.arrival);
+  return data
+    .map(mapRowToFlight)
+    .filter(flight => flight.date && flight.departure && flight.arrival);
 }
 
 // Parse CSV file content to flight objects
@@ -71,23 +95,21 @@ export function parseCSV(csvContent) {
     console.warn('CSV parsing warnings:', result.errors);
   }
 
-  return result.data.map((row, index) => {
-    return {
-      id: generateId(),
-      date: parseDate(row['Date']),
-      departure: (row['Departure place'] || '').toUpperCase().trim(),
-      arrival: (row['Arrival place'] || '').toUpperCase().trim(),
-      departureTime: row['Departure time'] || '',
-      arrivalTime: row['Arrival time'] || '',
-      totalTime: row['Total time'] || ''
-    };
-  }).filter(flight => flight.date && flight.departure && flight.arrival);
+  return result.data
+    .map(mapRowToFlight)
+    .filter(flight => flight.date && flight.departure && flight.arrival);
 }
+
+// CSV column headers for export
+const CSV_HEADERS = [
+  'Date', 'Departure', 'Arrival', 'Departure time', 'Arrival time', 'Total time',
+  'Registration', 'Aircraft ICAO', 'Take off day', 'Take off night',
+  'Landing day', 'Landing night', 'Night time', 'PIC Time',
+  'PIC', 'SIC', 'Crew', 'Notes'
+];
 
 // Generate CSV content from flight objects
 export function generateCSV(flights) {
-  const headers = ['Date', 'Departure place', 'Arrival place', 'Departure time', 'Arrival time', 'Total time'];
-
   const rows = flights.map(flight => {
     return [
       formatDateForCSV(flight.date),
@@ -95,11 +117,23 @@ export function generateCSV(flights) {
       flight.arrival,
       flight.departureTime,
       flight.arrivalTime,
-      flight.totalTime
+      flight.totalTime,
+      flight.registration || '',
+      flight.aircraftIcao || '',
+      flight.takeoffDay || 0,
+      flight.takeoffNight || 0,
+      flight.landingDay || 0,
+      flight.landingNight || 0,
+      flight.nightTime || '',
+      flight.picTime || '',
+      flight.isPic ? '1' : '',
+      flight.isSic ? '1' : '',
+      flight.crew || '',
+      flight.notes || ''
     ].join(';');
   });
 
-  return [headers.join(';'), ...rows].join('\n');
+  return [CSV_HEADERS.join(';'), ...rows].join('\n');
 }
 
 // Parse date from DD.MM.YY format to ISO date string
@@ -111,15 +145,12 @@ function parseDate(dateStr) {
 
   let [day, month, year] = parts.map(p => parseInt(p, 10));
 
-  // Handle 2-digit years
   if (year < 100) {
     year = year > 50 ? 1900 + year : 2000 + year;
   }
 
-  // Create ISO date string (YYYY-MM-DD)
   const isoDate = `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
 
-  // Validate the date
   const dateObj = new Date(isoDate);
   if (isNaN(dateObj.getTime())) return null;
 

@@ -1,15 +1,16 @@
-import { getFlights, deleteFlight } from '../store.js';
-import { formatDate, getFlightDistance, parseTimeToMinutes } from '../utils/calculations.js';
+import { getFilteredFlights, deleteFlight } from '../store.js';
+import { formatDate, getFlightDistance, parseTimeToMinutes, formatMinutes } from '../utils/calculations.js';
 import { openEditModal, openDeleteModal } from './modals.js';
 
 const ITEMS_PER_PAGE = 20;
 let currentPage = 1;
 let sortBy = 'date';
-let sortDirection = 'desc'; // 'asc' or 'desc'
+let sortDirection = 'desc';
 
-// Column definitions for sorting
 const columns = [
   { key: 'date', label: 'Datum', sortable: true },
+  { key: 'aircraftIcao', label: 'Typ', sortable: true },
+  { key: 'registration', label: 'Reg.', sortable: true },
   { key: 'departure', label: 'Von', sortable: true },
   { key: 'arrival', label: 'Nach', sortable: true },
   { key: 'departureTime', label: 'Abflug', sortable: true },
@@ -45,23 +46,31 @@ function renderTableHeader() {
     `;
   }).join('');
 
-  // Add click listeners for sorting
   thead.querySelectorAll('.sortable').forEach(th => {
     th.addEventListener('click', () => {
       const key = th.dataset.sort;
       if (sortBy === key) {
-        // Toggle direction
         sortDirection = sortDirection === 'asc' ? 'desc' : 'asc';
       } else {
-        // New column, default to descending for date, ascending for others
         sortBy = key;
         sortDirection = key === 'date' ? 'desc' : 'asc';
       }
-      currentPage = 1; // Reset to first page when sorting
+      currentPage = 1;
       renderTableHeader();
       renderTable();
     });
   });
+}
+
+// Secondary sort by departureTime when primary values are equal
+function compareWithSecondary(valA, valB, a, b) {
+  if (valA < valB) return sortDirection === 'asc' ? -1 : 1;
+  if (valA > valB) return sortDirection === 'asc' ? 1 : -1;
+
+  // Tie-break: sort by departureTime descending
+  if (a.departureTime > b.departureTime) return -1;
+  if (a.departureTime < b.departureTime) return 1;
+  return 0;
 }
 
 // Sort flights based on current sort settings
@@ -73,6 +82,14 @@ function sortFlights(flights) {
       case 'date':
         valA = a.date;
         valB = b.date;
+        break;
+      case 'aircraftIcao':
+        valA = (a.aircraftIcao || '').toLowerCase();
+        valB = (b.aircraftIcao || '').toLowerCase();
+        break;
+      case 'registration':
+        valA = (a.registration || '').toLowerCase();
+        valB = (b.registration || '').toLowerCase();
         break;
       case 'departure':
         valA = a.departure.toLowerCase();
@@ -102,35 +119,30 @@ function sortFlights(flights) {
         return 0;
     }
 
-    if (valA < valB) return sortDirection === 'asc' ? -1 : 1;
-    if (valA > valB) return sortDirection === 'asc' ? 1 : -1;
-    return 0;
+    return compareWithSecondary(valA, valB, a, b);
   });
 }
 
 // Render the flight table with pagination
 export function renderTable() {
-  const flights = getFlights();
+  const flights = getFilteredFlights();
   const sortedFlights = sortFlights(flights);
   const totalPages = Math.ceil(sortedFlights.length / ITEMS_PER_PAGE) || 1;
 
-  // Ensure current page is valid
   if (currentPage > totalPages) {
     currentPage = totalPages;
   }
 
-  // Get flights for current page
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
   const endIndex = startIndex + ITEMS_PER_PAGE;
   const pageFlights = sortedFlights.slice(startIndex, endIndex);
 
-  // Render table body
   const tbody = document.getElementById('flight-table-body');
   if (tbody) {
     if (pageFlights.length === 0) {
       tbody.innerHTML = `
         <tr>
-          <td colspan="8" class="empty-state">
+          <td colspan="${columns.length}" class="empty-state">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
               <path d="M21 16v-2l-8-5V3.5a1.5 1.5 0 0 0-3 0V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/>
             </svg>
@@ -146,6 +158,8 @@ export function renderTable() {
         return `
           <tr data-id="${flight.id}">
             <td>${formatDate(flight.date)}</td>
+            <td>${flight.aircraftIcao || '-'}</td>
+            <td>${flight.registration || '-'}</td>
             <td>${flight.departure}</td>
             <td>${flight.arrival}</td>
             <td>${flight.departureTime}</td>
@@ -169,23 +183,49 @@ export function renderTable() {
         `;
       }).join('');
 
-      // Add event listeners to buttons
       tbody.querySelectorAll('.edit-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-          openEditModal(btn.dataset.id);
-        });
+        btn.addEventListener('click', () => openEditModal(btn.dataset.id));
       });
 
       tbody.querySelectorAll('.delete-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-          openDeleteModal(btn.dataset.id);
-        });
+        btn.addEventListener('click', () => openDeleteModal(btn.dataset.id));
       });
     }
   }
 
-  // Render pagination
+  // Summary footer
+  renderSummaryRow(flights);
+
+  // Pagination
   renderPagination(totalPages);
+}
+
+// Render summary row in tfoot
+function renderSummaryRow(flights) {
+  const tfoot = document.getElementById('flight-table-foot');
+  if (!tfoot) return;
+
+  if (flights.length === 0) {
+    tfoot.innerHTML = '';
+    return;
+  }
+
+  let totalMinutes = 0;
+  let totalLandings = 0;
+
+  flights.forEach(f => {
+    totalMinutes += parseTimeToMinutes(f.totalTime);
+    totalLandings += (f.landingDay || 0) + (f.landingNight || 0);
+  });
+
+  tfoot.innerHTML = `
+    <tr class="summary-row">
+      <td colspan="7"><strong>Gesamt</strong></td>
+      <td><strong>${formatMinutes(totalMinutes)}</strong></td>
+      <td><strong>${totalLandings} Ldg</strong></td>
+      <td></td>
+    </tr>
+  `;
 }
 
 // Render pagination controls
@@ -199,11 +239,8 @@ function renderPagination(totalPages) {
   }
 
   let html = '';
-
-  // Previous button
   html += `<button ${currentPage === 1 ? 'disabled' : ''} data-page="prev">&laquo;</button>`;
 
-  // Page numbers
   const maxVisible = 5;
   let startPage = Math.max(1, currentPage - Math.floor(maxVisible / 2));
   let endPage = Math.min(totalPages, startPage + maxVisible - 1);
@@ -230,12 +267,10 @@ function renderPagination(totalPages) {
     html += `<button data-page="${totalPages}">${totalPages}</button>`;
   }
 
-  // Next button
   html += `<button ${currentPage === totalPages ? 'disabled' : ''} data-page="next">&raquo;</button>`;
 
   pagination.innerHTML = html;
 
-  // Add event listeners
   pagination.querySelectorAll('button').forEach(btn => {
     btn.addEventListener('click', () => {
       const page = btn.dataset.page;
@@ -251,13 +286,11 @@ function renderPagination(totalPages) {
   });
 }
 
-// Go to a specific page
 export function goToPage(page) {
   currentPage = page;
   renderTable();
 }
 
-// Get current page
 export function getCurrentPage() {
   return currentPage;
 }

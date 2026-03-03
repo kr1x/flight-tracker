@@ -170,7 +170,12 @@ body {
 
 /* Map Section */
 .map-section {
-  padding: 1rem;
+  padding: 1rem 1rem 0;
+}
+
+.map-section .map-container {
+  margin: 0 -1rem;
+  border-radius: 0 0 var(--radius) var(--radius);
 }
 
 .map-controls {
@@ -624,6 +629,90 @@ body {
   .form-row {
     flex-direction: column;
   }
+}
+
+/* Stat Sub (miles under km) */
+.stat-sub {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  margin-top: 0.25rem;
+}
+
+/* Global Filter */
+.global-filter {
+  min-width: 140px;
+}
+
+/* Analysis Tables */
+.analysis-section {
+  padding: 1.5rem;
+}
+
+.analysis-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+
+.analysis-table th,
+.analysis-table td {
+  padding: 0.625rem 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+}
+
+.analysis-table th {
+  background: var(--surface);
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+}
+
+.analysis-table tbody tr:hover {
+  background: var(--surface);
+}
+
+/* Collapsible Sections */
+.collapsible-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 1rem;
+}
+
+.collapsible-toggle .toggle-icon {
+  font-size: 0.75rem;
+  transition: transform 0.2s ease;
+}
+
+.collapsible-toggle.collapsed .toggle-icon {
+  transform: rotate(-90deg);
+}
+
+.collapsible-content {
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+
+.collapsible-content.collapsed {
+  display: none;
+}
+
+/* Summary Row (tfoot) */
+.summary-row td {
+  background: var(--surface);
+  border-top: 2px solid var(--border);
+  font-size: 0.875rem;
 }
 
 /* Leaflet Customization */

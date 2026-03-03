@@ -8,8 +8,23 @@ const listeners = new Set();
 // Current state
 let state = {
   flights: [],
-  loaded: false
+  loaded: false,
+  aircraftFilter: '',
+  departureFilter: '',
+  arrivalFilter: ''
 };
+
+// Sort flights by date (newest first), then by departureTime as secondary sort
+function sortByDateAndTime(flights) {
+  flights.sort((a, b) => {
+    const dateDiff = new Date(b.date) - new Date(a.date);
+    if (dateDiff !== 0) return dateDiff;
+    // Same date: sort by departureTime descending
+    if (a.departureTime > b.departureTime) return -1;
+    if (a.departureTime < b.departureTime) return 1;
+    return 0;
+  });
+}
 
 // Load state from LocalStorage
 export function loadState() {
@@ -40,9 +55,81 @@ function saveState() {
   }
 }
 
-// Get current flights
+// Get current flights (unfiltered)
 export function getFlights() {
   return state.flights;
+}
+
+// Get filtered flights based on all active filters
+export function getFilteredFlights() {
+  const { aircraftFilter, departureFilter, arrivalFilter } = state;
+  const hasFilter = aircraftFilter || departureFilter || arrivalFilter;
+  if (!hasFilter) return state.flights;
+
+  return state.flights.filter(f => {
+    if (aircraftFilter && f.aircraftIcao !== aircraftFilter) return false;
+    if (departureFilter && f.departure !== departureFilter) return false;
+    if (arrivalFilter && f.arrival !== arrivalFilter) return false;
+    return true;
+  });
+}
+
+// Set aircraft type filter
+export function setAircraftFilter(icao) {
+  state.aircraftFilter = icao || '';
+  notifyListeners();
+}
+
+// Get current aircraft filter
+export function getAircraftFilter() {
+  return state.aircraftFilter;
+}
+
+// Set departure airport filter
+export function setDepartureFilter(code) {
+  state.departureFilter = code || '';
+  notifyListeners();
+}
+
+// Set arrival airport filter
+export function setArrivalFilter(code) {
+  state.arrivalFilter = code || '';
+  notifyListeners();
+}
+
+// Get available options for each filter, constrained by the other two active filters.
+// Each dropdown only shows values that would produce results.
+export function getAvailableFilterOptions() {
+  const { aircraftFilter, departureFilter, arrivalFilter } = state;
+
+  const departures = new Set();
+  const arrivals = new Set();
+  const aircraftTypes = new Set();
+
+  state.flights.forEach(f => {
+    const matchAircraft = !aircraftFilter || f.aircraftIcao === aircraftFilter;
+    const matchDeparture = !departureFilter || f.departure === departureFilter;
+    const matchArrival = !arrivalFilter || f.arrival === arrivalFilter;
+
+    // Departure options: flights matching arrival + aircraft filters
+    if (matchArrival && matchAircraft && f.departure) {
+      departures.add(f.departure);
+    }
+    // Arrival options: flights matching departure + aircraft filters
+    if (matchDeparture && matchAircraft && f.arrival) {
+      arrivals.add(f.arrival);
+    }
+    // Aircraft options: flights matching departure + arrival filters
+    if (matchDeparture && matchArrival && f.aircraftIcao) {
+      aircraftTypes.add(f.aircraftIcao);
+    }
+  });
+
+  return {
+    departures: [...departures].sort(),
+    arrivals: [...arrivals].sort(),
+    aircraftTypes: [...aircraftTypes].sort()
+  };
 }
 
 // Add flights (optionally replace all)
@@ -53,8 +140,7 @@ export function addFlights(newFlights, replace = false) {
     state.flights = [...state.flights, ...newFlights];
   }
 
-  // Sort by date (newest first)
-  state.flights.sort((a, b) => new Date(b.date) - new Date(a.date));
+  sortByDateAndTime(state.flights);
 
   saveState();
   notifyListeners();
@@ -62,19 +148,16 @@ export function addFlights(newFlights, replace = false) {
 
 // Add a single flight
 export function addFlight(flight) {
-  // Generate ID if not present
   if (!flight.id) {
     flight.id = Date.now().toString(36) + Math.random().toString(36).substr(2);
   }
 
-  // Ensure uppercase codes
   flight.departure = flight.departure.toUpperCase();
   flight.arrival = flight.arrival.toUpperCase();
 
   state.flights.push(flight);
 
-  // Sort by date (newest first)
-  state.flights.sort((a, b) => new Date(b.date) - new Date(a.date));
+  sortByDateAndTime(state.flights);
 
   saveState();
   notifyListeners();
@@ -85,14 +168,12 @@ export function updateFlight(id, updates) {
   const index = state.flights.findIndex(f => f.id === id);
   if (index === -1) return false;
 
-  // Ensure uppercase codes
   if (updates.departure) updates.departure = updates.departure.toUpperCase();
   if (updates.arrival) updates.arrival = updates.arrival.toUpperCase();
 
   state.flights[index] = { ...state.flights[index], ...updates };
 
-  // Re-sort by date
-  state.flights.sort((a, b) => new Date(b.date) - new Date(a.date));
+  sortByDateAndTime(state.flights);
 
   saveState();
   notifyListeners();

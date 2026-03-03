@@ -1,6 +1,6 @@
 import Chart from 'chart.js/auto';
 import { calculateStats } from '../utils/calculations.js';
-import { getFlights } from '../store.js';
+import { getFilteredFlights } from '../store.js';
 
 let flightsChart = null;
 
@@ -90,7 +90,7 @@ export function initCharts() {
 export function updateCharts() {
   if (!flightsChart) return;
 
-  const flights = getFlights();
+  const flights = getFilteredFlights();
   const stats = calculateStats(flights);
 
   // Sort years chronologically
