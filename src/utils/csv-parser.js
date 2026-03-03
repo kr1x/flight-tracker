@@ -136,14 +136,32 @@ export function generateCSV(flights) {
   return [CSV_HEADERS.join(';'), ...rows].join('\n');
 }
 
-// Parse date from DD.MM.YY format to ISO date string
+// Parse date from various formats to ISO date string
+// Supports: DD.MM.YY, DD.MM.YYYY, M/D/YY, MM/DD/YYYY, YYYY-MM-DD
 function parseDate(dateStr) {
   if (!dateStr) return null;
 
-  const parts = dateStr.trim().split('.');
-  if (parts.length !== 3) return null;
+  const trimmed = dateStr.trim();
+  let day, month, year;
 
-  let [day, month, year] = parts.map(p => parseInt(p, 10));
+  if (trimmed.includes('.')) {
+    // DD.MM.YY or DD.MM.YYYY
+    const parts = trimmed.split('.');
+    if (parts.length !== 3) return null;
+    [day, month, year] = parts.map(p => parseInt(p, 10));
+  } else if (trimmed.includes('/')) {
+    // M/D/YY or MM/DD/YYYY (US format from Numbers/Excel)
+    const parts = trimmed.split('/');
+    if (parts.length !== 3) return null;
+    [month, day, year] = parts.map(p => parseInt(p, 10));
+  } else if (trimmed.includes('-')) {
+    // YYYY-MM-DD (ISO)
+    const parts = trimmed.split('-');
+    if (parts.length !== 3) return null;
+    [year, month, day] = parts.map(p => parseInt(p, 10));
+  } else {
+    return null;
+  }
 
   if (year < 100) {
     year = year > 50 ? 1900 + year : 2000 + year;
