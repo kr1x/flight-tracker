@@ -123,7 +123,7 @@ function renderAircraftAnalysis(flights) {
   if (!container) return;
 
   if (flights.length === 0) {
-    container.innerHTML = '<tr><td colspan="7">Keine Daten</td></tr>';
+    container.innerHTML = '<tr><td colspan="6">Keine Daten</td></tr>';
     return;
   }
 
@@ -133,7 +133,6 @@ function renderAircraftAnalysis(flights) {
     <tr>
       <td><strong>${a.type}</strong></td>
       <td>${a.flights}</td>
-      <td>${a.registrations.join(', ') || '-'}</td>
       <td>${a.totalTime}</td>
       <td>${a.nightTime}</td>
       <td>${a.picTime}</td>
