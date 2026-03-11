@@ -645,6 +645,10 @@ body {
 
 /* Analysis Tables */
 .analysis-section {
+  padding: 0 0 1.5rem;
+}
+
+.analysis-section .collapsible-toggle {
   padding: 1.5rem;
 }
 

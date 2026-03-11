@@ -14,17 +14,6 @@ export function updateStats() {
   updateElement('stat-distance-miles', `${stats.totalDistanceMiles.toLocaleString('de-DE')} mi`);
   updateElement('stat-airports', stats.uniqueAirports.toLocaleString('de-DE'));
 
-  // Top airports list
-  const topAirportsEl = document.getElementById('top-airports');
-  if (topAirportsEl) {
-    topAirportsEl.innerHTML = stats.topAirports.map(item => `
-      <li>
-        <span>${getAirportName(item.code)}</span>
-        <span class="count">${item.count}</span>
-      </li>
-    `).join('') || '<li>Keine Daten</li>';
-  }
-
   // Top routes list
   const topRoutesEl = document.getElementById('top-routes');
   if (topRoutesEl) {

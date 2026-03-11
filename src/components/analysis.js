@@ -52,9 +52,9 @@ function renderAirportPage() {
     <tr>
       <td><strong>${a.code}</strong></td>
       <td>${a.name}</td>
-      <td>${a.departures}</td>
-      <td>${a.arrivals}</td>
       <td>${a.landings}</td>
+      <td>${a.arrivals}</td>
+      <td>${a.departures}</td>
     </tr>
   `).join('');
 
