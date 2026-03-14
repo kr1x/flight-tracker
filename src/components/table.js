@@ -8,16 +8,16 @@ let sortBy = 'date';
 let sortDirection = 'desc';
 
 const columns = [
-  { key: 'date', label: 'Datum', sortable: true },
-  { key: 'aircraftIcao', label: 'Typ', sortable: true },
-  { key: 'registration', label: 'Reg.', sortable: true },
-  { key: 'departure', label: 'Von', sortable: true },
-  { key: 'arrival', label: 'Nach', sortable: true },
-  { key: 'departureTime', label: 'Abflug', sortable: true },
-  { key: 'arrivalTime', label: 'Ankunft', sortable: true },
-  { key: 'totalTime', label: 'Dauer', sortable: true },
-  { key: 'distance', label: 'Distanz', sortable: true },
-  { key: 'actions', label: 'Aktionen', sortable: false }
+  { key: 'date', label: 'DATE', sortable: true },
+  { key: 'aircraftIcao', label: 'TYPE', sortable: true },
+  { key: 'registration', label: 'REG', sortable: true },
+  { key: 'departure', label: 'FROM', sortable: true },
+  { key: 'arrival', label: 'TO', sortable: true },
+  { key: 'departureTime', label: 'ATD', sortable: true },
+  { key: 'arrivalTime', label: 'ATA', sortable: true },
+  { key: 'totalTime', label: 'FT', sortable: true },
+  { key: 'distance', label: 'DIST', sortable: true },
+  { key: 'actions', label: '', sortable: false }
 ];
 
 // Initialize the flight table

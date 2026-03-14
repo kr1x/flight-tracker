@@ -24,25 +24,25 @@
         </div>
         <div class="header-actions">
           <select id="departure-filter" class="select global-filter">
-            <option value="">Alle Abflüge</option>
+            <option value="">From</option>
           </select>
           <select id="arrival-filter" class="select global-filter">
-            <option value="">Alle Ziele</option>
+            <option value="">To</option>
           </select>
           <select id="aircraft-filter" class="select global-filter">
-            <option value="">Alle Flugzeuge</option>
+            <option value="">Type</option>
           </select>
-          <button class="btn btn-secondary" id="csv-export">
+          <button class="btn btn-secondary btn-compact" id="csv-export" title="Export CSV">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
               <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/>
             </svg>
-            Export CSV
+            <span class="btn-label">Export</span>
           </button>
-          <button class="btn btn-secondary" id="logout-btn">
+          <button class="btn btn-secondary btn-compact" id="logout-btn" title="Exit">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
               <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/>
             </svg>
-            Logout
+            <span class="btn-label">Exit</span>
           </button>
         </div>
       </div>
@@ -104,7 +104,7 @@
         </div>
         <div class="stat-card">
           <div class="stat-label">Flugzeit</div>
-          <div class="stat-value" id="stat-total-time">0h</div>
+          <div class="stat-value" id="stat-total-time">0:00</div>
         </div>
         <div class="stat-card">
           <div class="stat-label">Distanz</div>
@@ -148,8 +148,8 @@
             <table class="analysis-table">
               <thead>
                 <tr>
-                  <th>Code</th>
-                  <th>Name</th>
+                  <th>ICAO</th>
+                  <th>AIRPORT</th>
                   <th>LDG</th>
                   <th>ARR</th>
                   <th>DEP</th>
@@ -173,12 +173,12 @@
             <table class="analysis-table">
               <thead>
                 <tr>
-                  <th>Typ</th>
-                  <th>Flüge</th>
-                  <th>Gesamtzeit</th>
-                  <th>Nachtzeit</th>
-                  <th>PIC-Zeit</th>
-                  <th>Landungen</th>
+                  <th>TYPE</th>
+                  <th>FLT</th>
+                  <th>TT</th>
+                  <th>PIC</th>
+                  <th>NIGHT</th>
+                  <th>LDG</th>
                 </tr>
               </thead>
               <tbody id="aircraft-analysis-body"></tbody>
@@ -202,16 +202,16 @@
           <table class="flight-table">
             <thead>
               <tr>
-                <th>Datum</th>
-                <th>Typ</th>
-                <th>Reg.</th>
-                <th>Von</th>
-                <th>Nach</th>
-                <th>Abflug</th>
-                <th>Ankunft</th>
-                <th>Dauer</th>
-                <th>Distanz</th>
-                <th>Aktionen</th>
+                <th>DATE</th>
+                <th>TYPE</th>
+                <th>REG</th>
+                <th>FROM</th>
+                <th>TO</th>
+                <th>ATD</th>
+                <th>ATA</th>
+                <th>FT</th>
+                <th>DIST</th>
+                <th></th>
               </tr>
             </thead>
             <tbody id="flight-table-body"></tbody>

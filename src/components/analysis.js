@@ -134,8 +134,8 @@ function renderAircraftAnalysis(flights) {
       <td><strong>${a.type}</strong></td>
       <td>${a.flights}</td>
       <td>${a.totalTime}</td>
-      <td>${a.nightTime}</td>
       <td>${a.picTime}</td>
+      <td>${a.nightTime}</td>
       <td>${a.landings}</td>
     </tr>
   `).join('');

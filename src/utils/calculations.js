@@ -42,22 +42,16 @@ export function parseTimeToMinutes(timeStr) {
   return hours * 60 + minutes;
 }
 
-// Format minutes to display string (always in hours)
+// Format minutes to display string (H:MM)
 export function formatMinutes(totalMinutes) {
-  if (!totalMinutes || totalMinutes <= 0) return '0h';
+  if (!totalMinutes || totalMinutes <= 0) {
+    return '0:00';
+  }
 
   const hours = Math.floor(totalMinutes / 60);
   const minutes = totalMinutes % 60;
 
-  if (hours > 0 && minutes > 0) {
-    return `${hours}h ${minutes}m`;
-  }
-
-  if (hours > 0) {
-    return `${hours}h`;
-  }
-
-  return `${minutes}m`;
+  return `${hours}:${String(minutes).padStart(2, '0')}`;
 }
 
 // Format date for display (DD.MM.YYYY)
@@ -307,11 +301,11 @@ function getEmptyStats() {
   return {
     totalFlights: 0,
     totalMinutes: 0,
-    totalTime: '0h',
+    totalTime: '0:00',
     totalDistance: 0,
     totalDistanceMiles: 0,
     uniqueAirports: 0,
-    averageDuration: '0h',
+    averageDuration: '0:00',
     longestFlight: null,
     shortestFlight: null,
     firstFlight: null,
@@ -333,11 +327,11 @@ function getEmptyStats() {
     totalTakeoffNight: 0,
     totalLandingDay: 0,
     totalLandingNight: 0,
-    totalNightTime: '0h',
+    totalNightTime: '0:00',
     totalNightMinutes: 0,
-    totalPicTime: '0h',
+    totalPicTime: '0:00',
     totalPicMinutes: 0,
-    totalSicTime: '0h',
+    totalSicTime: '0:00',
     totalSicMinutes: 0
   };
 }

@@ -130,21 +130,21 @@ function updateFilterOptions() {
 
   rebuildFilterSelect(
     document.getElementById('departure-filter'),
-    'Alle Abflüge',
+    'From',
     departures,
     airportLabel
   );
 
   rebuildFilterSelect(
     document.getElementById('arrival-filter'),
-    'Alle Ziele',
+    'To',
     arrivals,
     airportLabel
   );
 
   rebuildFilterSelect(
     document.getElementById('aircraft-filter'),
-    'Alle Flugzeuge',
+    'Type',
     aircraftTypes,
     (type) => type
   );

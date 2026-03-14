@@ -19,7 +19,7 @@ export function initMap2D(containerId) {
   map = L.map(containerId, {
     center: defaultCenter,
     zoom: defaultZoom,
-    maxBounds: [[-90, -180], [90, 180]],
+    maxBounds: [[-90, -220], [90, 220]],
     maxBoundsViscosity: 1.0
   });
 
@@ -27,7 +27,7 @@ export function initMap2D(containerId) {
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '© OpenStreetMap contributors',
     maxZoom: 18,
-    noWrap: true
+    noWrap: false
   }).addTo(map);
 
   // Create layer groups
