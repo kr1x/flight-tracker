@@ -19,7 +19,7 @@ export function initMap2D(containerId) {
   map = L.map(containerId, {
     center: defaultCenter,
     zoom: defaultZoom,
-    maxBounds: [[-90, -220], [90, 220]],
+    maxBounds: [[-90, -270], [90, 270]],
     maxBoundsViscosity: 1.0
   });
 
@@ -165,7 +165,8 @@ export function updateMap2D(flights, options = {}) {
           color: color,
           weight: weight,
           opacity: 0.7,
-          steps: 50
+          steps: 50,
+          wrap: false
         }
       );
 
