@@ -1,5 +1,5 @@
 import './style.css';
-import { loadState, addFlights, getFlights, getFilteredFlights, clearFlights, subscribe, setAircraftFilter, setDepartureFilter, setArrivalFilter, getAvailableFilterOptions } from './store.js';
+import { loadState, addFlights, getFlights, getFilteredFlights, clearFlights, subscribe, setAircraftFilter, setDepartureFilter, setArrivalFilter, getAircraftFilter, getDepartureFilter, getArrivalFilter, getAvailableFilterOptions } from './store.js';
 import { getAirportName } from './data/airports.js';
 import { parseFile, generateCSV, downloadCSV } from './utils/csv-parser.js';
 import { initMapToggle, updateCurrentMap } from './components/map-toggle.js';
@@ -102,6 +102,44 @@ function initGlobalFilter() {
   if (arrivalSelect) {
     arrivalSelect.addEventListener('change', (e) => setArrivalFilter(e.target.value));
   }
+
+  initMobileFilter();
+}
+
+// Initialize mobile filter button + modal
+function initMobileFilter() {
+  const filterBtn = document.getElementById('mobile-filter-btn');
+  const filterModal = document.getElementById('filter-modal');
+  const resetBtn = document.getElementById('filter-reset-btn');
+  const mobileFrom = document.getElementById('mobile-departure-filter');
+  const mobileTo = document.getElementById('mobile-arrival-filter');
+  const mobileType = document.getElementById('mobile-aircraft-filter');
+
+  if (!filterBtn || !filterModal) return;
+
+  filterBtn.addEventListener('click', () => {
+    const backdrop = document.getElementById('modal-backdrop');
+    backdrop.classList.add('active');
+    filterModal.classList.add('active');
+  });
+
+  if (mobileFrom) {
+    mobileFrom.addEventListener('change', (e) => setDepartureFilter(e.target.value));
+  }
+  if (mobileTo) {
+    mobileTo.addEventListener('change', (e) => setArrivalFilter(e.target.value));
+  }
+  if (mobileType) {
+    mobileType.addEventListener('change', (e) => setAircraftFilter(e.target.value));
+  }
+
+  if (resetBtn) {
+    resetBtn.addEventListener('click', () => {
+      setDepartureFilter('');
+      setArrivalFilter('');
+      setAircraftFilter('');
+    });
+  }
 }
 
 // Rebuild a filter select's options, preserving current selection
@@ -128,26 +166,29 @@ function updateFilterOptions() {
   const airportLabel = (code) => `${code} - ${getAirportName(code)}`;
   const { departures, arrivals, aircraftTypes } = getAvailableFilterOptions();
 
-  rebuildFilterSelect(
-    document.getElementById('departure-filter'),
-    'From',
-    departures,
-    airportLabel
-  );
+  rebuildFilterSelect(document.getElementById('departure-filter'), 'From', departures, airportLabel);
+  rebuildFilterSelect(document.getElementById('arrival-filter'), 'To', arrivals, airportLabel);
+  rebuildFilterSelect(document.getElementById('aircraft-filter'), 'Type', aircraftTypes, (type) => type);
 
-  rebuildFilterSelect(
-    document.getElementById('arrival-filter'),
-    'To',
-    arrivals,
-    airportLabel
-  );
+  // Sync mobile filter selects
+  rebuildFilterSelect(document.getElementById('mobile-departure-filter'), 'All', departures, airportLabel);
+  rebuildFilterSelect(document.getElementById('mobile-arrival-filter'), 'All', arrivals, airportLabel);
+  rebuildFilterSelect(document.getElementById('mobile-aircraft-filter'), 'All', aircraftTypes, (type) => type);
 
-  rebuildFilterSelect(
-    document.getElementById('aircraft-filter'),
-    'Type',
-    aircraftTypes,
-    (type) => type
-  );
+  // Sync mobile select values from store
+  const mobileFrom = document.getElementById('mobile-departure-filter');
+  const mobileTo = document.getElementById('mobile-arrival-filter');
+  const mobileType = document.getElementById('mobile-aircraft-filter');
+  if (mobileFrom) mobileFrom.value = getDepartureFilter();
+  if (mobileTo) mobileTo.value = getArrivalFilter();
+  if (mobileType) mobileType.value = getAircraftFilter();
+
+  // Update filter button active state
+  const filterBtn = document.getElementById('mobile-filter-btn');
+  if (filterBtn) {
+    const isActive = getDepartureFilter() || getArrivalFilter() || getAircraftFilter();
+    filterBtn.classList.toggle('active', Boolean(isActive));
+  }
 }
 
 // Show/hide upload spinner

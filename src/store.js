@@ -91,10 +91,20 @@ export function setDepartureFilter(code) {
   notifyListeners();
 }
 
+// Get current departure filter
+export function getDepartureFilter() {
+  return state.departureFilter;
+}
+
 // Set arrival airport filter
 export function setArrivalFilter(code) {
   state.arrivalFilter = code || '';
   notifyListeners();
+}
+
+// Get current arrival filter
+export function getArrivalFilter() {
+  return state.arrivalFilter;
 }
 
 // Get available options for each filter, constrained by the other two active filters.
